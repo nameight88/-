@@ -1,2 +1,9 @@
 # macOS system files
 .DS_Store
+
+# jQuery
+/node_modules/
+/dist/
+
+# Windows
+Thumbs.db
