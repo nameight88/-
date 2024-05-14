@@ -18,12 +18,6 @@ public class NewsController {
 //	private NewsService newsSerivce;
 //
 //	
-//	@GetMapping("getNewsList")
-//	public String getNewsList(Model model) {
-//      
-//        return "mainPage";
-//	}
-
 //	@RequestMapping("deleteNews")
 //	public String deleteBoard(NewsVO vo) {
 //		System.out.println("deleteBoard 요청 확인"+"/"+vo.toString());

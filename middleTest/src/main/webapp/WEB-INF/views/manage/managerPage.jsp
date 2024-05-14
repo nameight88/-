@@ -24,7 +24,8 @@
 	rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="../resources/ProductDetail/css/shop-item.css" rel="stylesheet">
+<link href="../resources/ProductDetail/css/shop-item.css"
+	rel="stylesheet">
 
 </head>
 
@@ -38,45 +39,57 @@
 			<div class="col-lg-3">
 				<h1 class="my-4">관리자 페이지</h1>
 				<div class="list-group">
-					<a href="managerPage" class="list-group-item active">뉴스관리</a>
-					<a href="manageReservation" class="list-group-item">회원관리</a>
-					<a href="managereport" class="list-group-item">신고</a>
+					<a href="managerPage" class="list-group-item active">뉴스관리</a> <a
+						href="manageReservation" class="list-group-item">회원관리</a> <a
+						href="managereport" class="list-group-item">신고</a>
 					<!--  <a href="managerQnA" class="list-group-item">QnA</a> -->
-				
+
 				</div>
-				<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
 			</div>
-			
+
 			<div class="col-lg-9">
 				<div class="table-responsive">
-				<br/><br/><br/><br/>
+					<br />
+					<br />
+					<br />
+					<br />
 					<table class="table table-bordered table-hover">
-					
+
 						<thead>
 							<tr>
-								<th>뉴스 번호</th>
+								<th>번호</th>
 								<th>제목</th>
 								<th>링크</th>
-								<th>수정</th>
 								<th>삭제</th>
 							</tr>
 						</thead>
 						<tbody>
 							<!-- 여기에 매물 행을 동적으로 추가할 수 있습니다. -->
-							<tr>
-								<td>1</td>
-								<td>싸게 사는법</td>
-								<td>링크!!!</td>
-								<td><button class="btn btn-success">수정</button></td>
-								<td><button class="btn btn-danger">삭제</button></td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>싸게 사는법</td>
-								<td>링크!!!</td>
-								<td><button class="btn btn-success">수정</button></td>
-								<td><button class="btn btn-danger">삭제</button></td>
-							</tr>
+							<c:forEach var="news" items="${newsList}">
+								<tr>
+									<td><a>${news.news_num}</a></td>
+									<td><a>${news.news_title}</a></td>		
+									<td><a>${news.news_link}</a></td>
+									<td><button class="btn btn-danger">삭제</button></td>
+								</tr>	
+								<tr>
+									
+								</tr>
+							</c:forEach>
 							<!-- 추가적인 매물 행들을 여기에 추가할 수 있습니다. -->
 						</tbody>
 					</table>

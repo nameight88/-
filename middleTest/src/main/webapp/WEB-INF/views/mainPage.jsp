@@ -105,8 +105,9 @@
     <div>
 
 			<h2>뉴스 간판 테스트</h2>
-			<div class="newstable">
-				<table id="newsList">
+			<div name="main_newsList">
+				<table id="newsList" class="table table-bordered table-hover">
+				
 					<c:forEach var="news" items="${newsList}">
                 <tr>
                     <td>

@@ -1,15 +1,29 @@
 package com.javaclass.basic;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.javaclass.vo.NewsVO;
+import com.javaclass.service.NewsService;
 
 @Controller
 @RequestMapping("manage")
 public class ManageController {
+	
+	@Autowired
+	private NewsService newsSerivce;
 
 	@RequestMapping("managerPage")
-	public String manager() {
-		return "manage/managerPage";
+	public void  manager(Model model) {
+		List<NewsVO> newsList = newsSerivce.getNewsList();
+		model.addAttribute("mainPage", newsList);
+		System.out.println(newsList);
+		model.addAttribute("newsList",newsList);
+		
 	}
 
 	@RequestMapping("manageReservation")
