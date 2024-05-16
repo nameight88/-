@@ -13,5 +13,6 @@ public class AgentDaoImpl implements AgentDao{
 	
 	public void insertAgent(AgentVO vo){
 		ss.insert("agent.insertAgent", vo);
+		
 	}
 }

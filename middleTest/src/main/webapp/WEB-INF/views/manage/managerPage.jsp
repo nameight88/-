@@ -14,9 +14,30 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
-<script src="../resources/ProductDetail/js/reply.js"></script>
 
-<title>Shop Item - Start Bootstrap Template</title>
+<script type="text/javascript">
+	$(function() {
+		$('.delete_newslist').click(function() {
+			var news_num = $(this).closest('tr').find('td:first-child').text();
+			$.ajax({
+				type : "get",
+				url : 'deleteNews',
+				data : { news_num : news_num },				
+				success : function(result) {
+				$(this).closest('tr').remove();
+				window.location.href="/middleTest/manage/managerPage";
+					
+				},
+				error : function(xhr, status, error) {
+					console.error(error);
+					console.error(news_num);
+				}
+			});
+
+		})
+	});
+</script>
+
 
 <!-- Bootstrap core CSS -->
 <link
@@ -33,6 +54,7 @@
 <%@include file="/WEB-INF/views/common/nav.jsp"%>
 <body>
 
+
 	<!-- Page Content -->
 	<div class="container">
 		<div class="row">
@@ -45,29 +67,15 @@
 					<!--  <a href="managerQnA" class="list-group-item">QnA</a> -->
 
 				</div>
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
+				<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+				<br /> <br /> <br /> <br /> <br />
 			</div>
 
 			<div class="col-lg-9">
 				<div class="table-responsive">
-					<br />
-					<br />
-					<br />
-					<br />
-					<table class="table table-bordered table-hover">
+					<br /> <br /> <br /> <br />
+					<!-- 뉴스 관리 게시판 -->
+					<table class="table table-bordered table-hover newsList">
 
 						<thead>
 							<tr>
@@ -82,15 +90,13 @@
 							<c:forEach var="news" items="${newsList}">
 								<tr>
 									<td><a>${news.news_num}</a></td>
-									<td><a>${news.news_title}</a></td>		
+									<td><a>${news.news_title}</a></td>
 									<td><a>${news.news_link}</a></td>
-									<td><button class="btn btn-danger">삭제</button></td>
-								</tr>	
+									<td><button class="btn btn-danger delete_newslist">삭제</button></td>
+								</tr>
 								<tr>
-									
 								</tr>
 							</c:forEach>
-							<!-- 추가적인 매물 행들을 여기에 추가할 수 있습니다. -->
 						</tbody>
 					</table>
 				</div>

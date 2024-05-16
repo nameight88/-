@@ -22,7 +22,7 @@
 				<h4 class="card-title mt-3 text-center"><b>아이디 찾기</b></h4>
 				<br>
 				<!-- 아이디 찾기 ########################################### -->
-				<form action="login">
+				<form action="findId" class="findAccount-Id" method="post" enctype="multipart/form-data" >
 					<table>
 						<tr>
 							<td><b>이메일</b></td>
@@ -30,27 +30,26 @@
 						</tr>
 					</table><br>
 				<div class="d-grid gap-2 col-6 mx-auto">
-					<button type="button" class="btn btn-primary" id="signupButton" onclick="id_search()"> Find ID </button>
+					<button type="button" class="btn btn-primary" id="findIdButton" name="findIdButton"> Find ID </button>
 				</div>
 				</form><br><hr><br>
-
-	    		<h4 class="card-title mt-3 text-center"><b>비밀번호 찾기</b></h4>
-				<br>
+				
+				
 				<!-- 비밀번호 찾기 ########################################### -->
-				<form action="login">
+	    		<h4 class="card-title mt-3 text-center"><b>비밀번호 찾기</b></h4><br>
+				<form action="findPass" class="findPass" method="post" enctype="multipart/form-data" >
 					<table>
 						<tr>
 							<td><b>아이디</b></td>
-							<td><input type="text" id="findId" class="findId" name="findPass_id"></td>
+							<td><input type="text" id="findPass" class="findPass" name="findPass_id"></td>
 						</tr>
 						<tr>
 							<td><b>이메일</b></td>
-							<td><input type="text" id="findPass" class="findPass" name="findPass_email
-							"></td>
+							<td><input type="text" id="findPass" class="findPass" name="findPass_email"></td>
 						</tr>
 					</table><br>
 				<div class="d-grid gap-2 col-6 mx-auto">
-					<button type="button" class="btn btn-primary" id="signupButton" onclick="id_search()"> Find PW </button>
+					<button type="button" class="btn btn-primary" id="findPassButton" name="findPassButton"> Find PW </button>
 				</div>
 				</form><br><hr><br>
 				<dl>

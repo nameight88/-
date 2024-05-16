@@ -1,28 +1,27 @@
 package com.javaclass.basic;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
 
 import com.javaclass.service.NewsService;
-import com.javaclass.vo.NewsVO;
 
 @Controller
 public class NewsController {
 	
-//	@Autowired
-//	private NewsService newsSerivce;
-//
-//	
-//	@RequestMapping("deleteNews")
-//	public String deleteBoard(NewsVO vo) {
-//		System.out.println("deleteBoard 요청 확인"+"/"+vo.toString());
-//		newsSerivce.deleteNews(vo);
-//		return "redirect:getList.do"; 
-//	}
-//	
+	@Autowired
+	private NewsService newsSerivce;
+
+	
+	@GetMapping("/manage/deleteNews")
+	@ResponseBody
+	public String deleteNews(@RequestParam int news_num) {
+	   // System.out.println("삭제 신호 확인 "+news_num);
+	    newsSerivce.deleteNews(news_num);
+	    return "success";
+	}
+	
+
 }

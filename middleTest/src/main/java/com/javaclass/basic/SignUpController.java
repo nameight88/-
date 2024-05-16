@@ -1,9 +1,12 @@
 package com.javaclass.basic;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.ResultType;
@@ -67,18 +70,21 @@ public class SignUpController {
 		System.out.println("SignUpController//"+checkBeforeId);
 		boolean result = service.IdCheck(checkBeforeId);
 	        //getMemberId는 id로 멤버의 dto를 꺼내오는 메소드
-			Map<Object, Object> map = new HashMap<Object, Object>();
-			
-			// 아이디가 존재하지 않으면
-			if(result == true) {
-				map.put("cnt", 0);
-			// 아이디가 존재하면
-			}else {
-				map.put("cnt", 1);
-			}
-			System.out.println("보낼 map값은: "+result);
+			System.out.println("IdCheck 보낼 값은: "+result);
 			return result;
 		}
+	
+	// -2.3. -> 회원가입:아이디 중복 검사(중개인/고객 통일)
+		@RequestMapping("signUp/userEmailCheck.do")
+		@ResponseBody
+		public boolean EmailCheck(@RequestParam String checkEmail) throws Exception{
+			System.out.println("SignUpController//"+checkEmail);
+			boolean result = service.emailCheck(checkEmail);
+		        //getMemberId는 id로 멤버의 dto를 꺼내오는 메소드
+				System.out.println("보낼 map값은: "+result);
+				
+				return result;
+			}
 		
 	// -3. 회원가입:중개인정보 입력 페이지
 	@RequestMapping("signUp/signUp3")
@@ -89,7 +95,7 @@ public class SignUpController {
 	// -3.1. -> 입력된 중개인가입 데이터 전송 및 로그인 페이지 redirect
 	@RequestMapping("signUp/transfer2")
 	public String addAll2(AgentVO avo) throws Exception{
-		System.out.println(avo.toString());
+		System.out.println("중개인 가입: "+avo.toString());
 		service.addAll2(avo);
 		
 		return "redirect:/login";
@@ -98,14 +104,18 @@ public class SignUpController {
 	// -4.1. 로그인 작업
 	@RequestMapping("loginForm")
 	@ResponseBody
-	public boolean login(@RequestParam String inputId, @RequestParam String inputPass) throws Exception{
+	public int login(@RequestParam String inputId, @RequestParam String inputPass, HttpSession session) throws Exception{
 		System.out.println("SignUpController - loginForm// id: "+inputId+" pw : " +inputPass);
-		boolean result = service.Login(inputId,inputPass);
+		int result = service.Login(inputId,inputPass);
 			System.out.println("보낼 값은: "+result);
-			if(result==true) {
-				
-			}
-			
+			switch(result) {
+				case 1 : session.setAttribute("user", inputId);
+				break;
+				case 2 : session.setAttribute("agent", inputId);
+				break;
+				case 3 : session.setAttribute("admin", inputId);
+				break;
+			}		
 			return result;
 	}
 	
@@ -121,4 +131,5 @@ public class SignUpController {
 	
 		return "signUp/termsOfService1";
 	}
+	
 }

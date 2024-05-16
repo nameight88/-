@@ -17,5 +17,16 @@ public interface ServiceTx {
 
 	public boolean IdCheck(String checkBeforeId) throws Exception;
 
-	public boolean Login(String inputId, String inputPass)throws Exception;
+	public int Login(String inputId, String inputPass)throws Exception;
+
+	public String findAccountId(String inputEmail)throws Exception;
+
+	public boolean emailCheck(String checkEmail)throws Exception;
+
+	public boolean findAccountPass(String inputPwId, String inputPwEmail)throws Exception;
+
+	public int changeNewUserPassword(String inputNewPw, String rememberId)throws Exception;
+
+	public int changeNewAgentPassword(String inputNewPw, String rememberId)throws Exception;
+
 }

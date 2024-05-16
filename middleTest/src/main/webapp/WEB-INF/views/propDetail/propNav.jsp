@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="resources/ProductDetail/css/propNav.css">
+<link href="/middleTest/resources/ProductDetail/css/overlay.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 </head>
 <body>
@@ -33,11 +34,11 @@
       <div class="contectImg">
          <table class="agentInfo">
          <tr>
-         <td><button><img alt="예약하기" src="resources/ProductDetail/image/contect.png"></button></td>
+         <td><button class="open-btn"><img alt="예약하기" src="resources/ProductDetail/image/contect.png"></button></td>
          <td><button><img alt="예약하기" src="resources/ProductDetail/image/like_off.png"></button></td>
          </tr>
          <tr>
-         <td>정보 더보기</td>
+         <td> 정보 더보기</td>
          <td>찜하기</td>
          </tr>
          </table>

@@ -8,6 +8,6 @@ public interface NewsDao {
 	
 	public List<NewsVO> getNewsList();
 	
-	public void deleteNews(NewsVO vo);
+	public void deleteNews(int news_num);
 
 }

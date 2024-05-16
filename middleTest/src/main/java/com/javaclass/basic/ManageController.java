@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.javaclass.vo.NewsVO;
 import com.javaclass.service.NewsService;
+import com.javaclass.vo.NewsVO;
 
 @Controller
 @RequestMapping("manage")

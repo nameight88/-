@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import javax.servlet.ServletContext;
 
-import org.omg.IOP.ServiceContext;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
@@ -30,10 +30,11 @@ public class PropertyVO {
 	private PropertyOptionVO propertyOption;
 	private PropertySecurityVO propertySecurity;
 	private int property_count; // 조회수
+	private String agent_id; // 중개인 아이디
 
 	private ServletContext servletContext;
 	MultipartFile file; // ****** type='file'의 name명과 동일
-	private String property_name; // 파일 이름
+	private String property_fname; // 파일 이름
 	private String property_realfname; // 파일 경로 이름
 	private long property_fsize; // 파일 사이즈
 	private String searchText;
@@ -45,33 +46,58 @@ public class PropertyVO {
 	public void setFile(MultipartFile file) {
 		this.file = file;
 
+
 		// 업로드 파일이 있는 경우
-		if (!file.isEmpty()) {
-			this.property_name = file.getOriginalFilename();
+		if( !file.isEmpty()) {
+			this.property_fname = file.getOriginalFilename();
 			this.property_fsize = file.getSize();
 
 			// 실제 저장된 파일명 만들기
 			UUID uuid = UUID.randomUUID();
-			this.property_realfname = uuid.toString() + "_" + property_name;
+			this.property_realfname = uuid.toString() + "_" + property_fname;
 
 			// 실제파일 저장
-			String uploadDir = servletContext.getRealPath("/resources/upload/");
-			File uploadPath = new File(uploadDir);
-
-			if (!uploadPath.exists()) {
-				uploadPath.mkdirs(); // 디렉토리가 존재하지 않으면 생성
-			}
-			File f = new File(uploadPath, property_realfname);
+			// [오늘의 과제] 추후에 웹서버 경로를 찾아서 수정
+			File f = new File("D:\\springweb\\middleTest\\src\\main\\webapp\\resources\\propertyImg\\" + property_realfname);
 
 			try {
 				file.transferTo(f); // 실제 전송
-			} catch (IllegalStateException e) {
+			} catch (IllegalStateException e) {				
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 
 		}
+
+
+		// 업로드 파일이 있는 경우
+//		if (!file.isEmpty()) {
+//			this.property_fname = file.getOriginalFilename();
+//			this.property_fsize = file.getSize();
+//
+//			// 실제 저장된 파일명 만들기
+//			UUID uuid = UUID.randomUUID();
+//			this.property_realfname = uuid.toString() + "_" + property_fname;
+//
+//			// 실제파일 저장
+//			String uploadDir = servletContext.getRealPath("\\resources\\propertyImg\\");
+//			File uploadPath = new File(uploadDir);
+//
+//			if (!uploadPath.exists()) {
+//				uploadPath.mkdirs(); // 디렉토리가 존재하지 않으면 생성
+//			}
+//			File f = new File(uploadPath, property_realfname);
+//
+//			try {
+//				file.transferTo(f); // 실제 전송
+//			} catch (IllegalStateException e) {
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//
+//		}
 
 	}
 

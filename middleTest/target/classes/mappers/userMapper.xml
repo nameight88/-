@@ -25,6 +25,12 @@
 	SELECT agent_id FROM agent where agent_id = #{checkBeforeId}
 	</select>
 	
+	<select id="checkEmail"  parameterType="String" resultType="String">
+	SELECT user_email FROM user where user_email = #{checkEmail}
+	UNION
+	SELECT agent_email FROM agent where agent_email = #{checkEmail}
+	</select>
+	
 	<select id="loginId"  parameterType="String" resultType="String">
 	SELECT user_id FROM user where user_id = #{inputId}
 	UNION
@@ -36,5 +42,37 @@
 	UNION
 	SELECT agent_password FROM agent where agent_password = #{inputPass}
 	</select>
+	
+	<select id="loginType"  parameterType="String" resultType="String">
+	SELECT type FROM user where user_id = #{inputId}
+	UNION
+	SELECT type FROM agent where agent_id = #{inputId}
+	</select>
+	
+	<select id="findId"  parameterType="String" resultType="String">
+	SELECT user_id FROM user where user_email = #{inputEmail}
+	UNION
+	SELECT agent_id FROM agent where agent_email = #{inputEmail}
+	</select>
+	
+	<select id="checkPwEmail"  parameterType="String" resultType="String">
+	SELECT user_email FROM user where user_email = #{inputEmail}
+	UNION
+	SELECT agent_email FROM agent where agent_email = #{inputEmail}
+	</select>
+	
+	<select id="checkPwId"  parameterType="String" resultType="String">
+	SELECT user_id FROM user where user_id = #{inputPwId}
+	UNION
+	SELECT agent_id FROM agent where agent_id = #{inputPwId}
+	</select>
+	
+	<update id="changeNewUserPass" parameterType="java.util.Map">
+	UPDATE user SET user_password = #{inputNewPw} WHERE user_id = #{rememberId}
+	</update>
+	
+	<update id="changeNewAgentPass" parameterType="java.util.Map">
+	UPDATE agent SET agent_password = #{inputNewPw} WHERE agent_id = #{rememberId}
+	</update>
 	
 </mapper>

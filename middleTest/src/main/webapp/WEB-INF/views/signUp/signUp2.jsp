@@ -30,10 +30,11 @@
                <div class="form-desc">아이디</div>
                <div class="form-group input-group">
                   <div class="input-group-prepend"><span class="input-group-text"> <i class="fa fa-id-badge"></i> </span></div>
-                   <input name="user_id" class="form-control" placeholder="2~15자 영문,숫자 조합" pattern="[A-Za-z0-9]{2,15}" type="text" value="" required="required">
-                   <input type="checkbox" name="idCheckBox" class="id-checkbox" value="id 중복확인" style="display: none;">
+                   <input name="user_id" class="form-control" placeholder="2~15자 영문,숫자 조합" pattern="[A-Za-z0-9]{2,10}" type="text" value="" required="required">
+                   <input type="checkbox" name="idCheckBox" class="id-checkbox" value="id 중복확인" >
                    <button id='idCheck' class="idCheck" type="button" >중복확인</button>
                </div>
+               <div><span class="resultIdMessage" ><h6></h6></span></div>
                
                <!-- div:사용자 비밀번호 -->
                <div class="form-desc">비밀번호</div>
@@ -68,6 +69,8 @@
                    <div class="input-group-prepend"><span class="input-group-text"> <i class="fa fa-envelope"></i> </span></div>
                    <input name="user_email" class="form-control" placeholder="" type="email" value="${ customer.customerEmail }" required="required">
                </div>
+               <div><span class="resultMessage" ><h6></h6></span></div>
+               
                
                <!-- div:사용자 전화번호 입력 -->
                <div class="form-desc">전화번호(- 기호 포함)</div>

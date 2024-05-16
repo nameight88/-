@@ -9,5 +9,15 @@ public interface UserDao {
 
 	public boolean IdCheck(String checkBeforeId);
 	
-	public boolean Login(String inputId, String inputPass);
+	public int Login(String inputId, String inputPass);
+
+	public String findAccountId(String inputEmail);
+
+	public boolean emailCheck(String checkEmail);
+
+	public boolean findAccountPass(String inputPwId, String inputPwEmail);
+
+	public int changeNewUserPassword(String inputNewPw, String rememberId);
+
+	public int changeNewAgentPassword(String inputNewPw, String rememberId);
 }

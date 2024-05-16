@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
-<head>
+<head> 
 
 <meta charset="utf-8">
 <meta name="viewport"
@@ -61,7 +61,7 @@
 								<input type="text" class="form-control" id="property_title" name="property_title" value="${property.property_title }">
 							</div>
 							<div class="form-group">
-								<input type="date" class="form-control" id="property_year" name="property_year" value="${property.property_year }">
+								<input type="date" class="form-control" id="property_year" name="property_year" value="${property.property_year }" readonly>
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
@@ -84,9 +84,9 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<input type="text" class="form-control" id="property_size" name="property_size" value="${property.property_size }평" readonly>
+								<input type="text" class="form-control" id="property_size" name="property_size" value="${property.property_size }" readonly>
 							</div>
-							<div class="form-group">
+							<div class="form-group ">
 								<input type="text" class="form-control" id="price" name="price" value="${property.price }">
 							</div>
 							<div class="form-group">
@@ -102,22 +102,22 @@
 									<input type="text" class="form-control" id="bathrooms" name="bathrooms" value="${property.bathrooms}" readonly>
 								</div>
 							</div>
-
+<!-- <option value="매매" ${property.property_cate eq '매매' ? 'selected' : ''}>매매</option> -->
 							<!-- 옵션 체크박스 -->
 							<div class="form-group">
 								<label for="property_option">옵션선택</label> <br />
 								<div class="checkbox-row">
-									<input type="checkbox" name="aircon" value="false"> 에어컨 <input
-										type="checkbox" name="refrigerator" value="false"> 냉장고 <input
-										type="checkbox" name="washing_machine" value="false"> 세탁기 <input
-										type="checkbox" name="shower_booth" value="false"> 샤워부스
+									<input type="checkbox" name="aircon" value="${option.aircon }" ${option.aircon ? 'checked' : ''}> 에어컨 
+									<input type="checkbox" name="refrigerator" value="${option.refrigerator }" ${option.refrigerator ? 'checked' : ''}> 냉장고 
+									<input type="checkbox" name="washing_machine" value="${option.washing_machine }" ${option.refrigerator ? 'checked' : ''}> 세탁기 
+									<input type="checkbox" name="shower_booth" value="${option.shower_booth }" ${option.shower_booth ? 'checked' : ''}> 샤워부스
 								</div>
 								<div class="checkbox-row">
-									<input type="checkbox" name="sink" value="false"> 싱크대 <input
-										type="checkbox" name="induction" value="false"> 인덕션 <input
-										type="checkbox" name="veranda" value="false"> 베란다 <input
-										type="checkbox" name="fire_alarm" value="false"> 화재경보기 <input
-										type="checkbox" name="tub" value="false">욕조
+									<input type="checkbox" name="sink" value="${option.sink }" ${option.sink ? 'checked' : ''}> 싱크대 
+									<input type="checkbox" name="induction" value="${option.induction }" ${option.induction ? 'checked' : ''}> 인덕션 
+									<input type="checkbox" name="veranda" value="${option.veranda }" ${option.veranda ? 'checked' : ''}> 베란다 
+									<input type="checkbox" name="fire_alarm" value="${option.fire_alarm }" ${option.fire_alarm ? 'checked' : ''}> 화재경보기
+									<input type="checkbox" name="tub" value="${option.tub }" ${option.tub ? 'checked' : ''}>욕조
 								</div>
 							</div>
 
@@ -125,12 +125,12 @@
 							<div class="form-group">
 								<label for="security">보안</label> <br />
 								<div class="checkbox-row">
-									<input type="checkbox" name="storage_box" value="false">택배보관함
-									<input type="checkbox" name="cctv" value="false"> cctv <input
-										type="checkbox" name="door_lock" value="false"> 도어락 <input
-										type="checkbox" name="intercom" value="false"> 인터폰 <input
-										type="checkbox" name="entrance_security" value="false"> 현관보안
-										<input type="checkbox" name="bodyguard" value="false">경호원
+									<input type="checkbox" name="storage_box" value="${security.storage_box}" ${security.storage_box ? 'checked' : ''} >택배보관함
+									<input type="checkbox" name="cctv" value="${security.cctv}"  ${security.cctv ? 'checked' : ''}> cctv 
+									<input type="checkbox" name="door_lock" value="${security.door_lock}"  ${security.door_lock ? 'checked' : ''}> 도어락 
+									<input type="checkbox" name="intercom" value="${security.intercom}"  ${security.intercom ? 'checked' : ''}> 인터폰
+									<input type="checkbox" name="entrance_security" value="${security.entrance_security}"  ${security.entrance_security ? 'checked' : ''}> 현관보안
+									<input type="checkbox" name="bodyguard" value="${security.bodyguard}"  ${security.bodyguard ? 'checked' : ''}>경호원
 										
 								</div>
 							</div>
@@ -139,14 +139,14 @@
 								<input type="text" class="form-control" id="description" name="description" value="${property.description}">
 							</div>
 
-							<div class="form-group">
+							<!-- <div class="form-group">
 								<label for="file">이미지</label> <input type="file" name='file'
 									maxlength="60" size="40">
-							</div>
+							</div> -->
 
 							<!-- 기타 필드들을 추가할 수 있습니다. -->
 							<div class="form-group">
-								<button type="submit" name="successful" class="btn btn-primary btn-block">수정하기</button>
+								<input type="submit" class="btn btn-primary btn-block" value="수정">
 							</div>
 						</form>
 					</article>
@@ -168,8 +168,6 @@
 	<script src="../resources/ProductDetail/js/order.js"></script>
 	
 	<script src="../resources/nav/js/nav.js"></script>
-	<script src="../resources/agent/js/agentupdate.js"></script>
-	
 
 	<script
 		src="../resources/ProductDetail/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -191,7 +189,7 @@
             
         }
     });
-	
+	 
 	 // 체크박스가 변경될 때 이벤트 처리
     $('input[type="checkbox"]').change(function() {
         // 체크박스가 선택된 경우
@@ -202,8 +200,10 @@
             $(this).val(false); // false 값을 설정
         }
     });
+
+	 
 </script>
-</script>
+
 </body>
 
 </html>

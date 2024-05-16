@@ -53,7 +53,8 @@
 						<h4 class="card-title mt-3 text-center">매물 등록</h4>
 						<br>
 						<!-- 매물 등록 폼 -->
-						<form action="propertyInsert" method="post">
+						<form action="propertyInsert" method="post" enctype="multipart/form-data">
+							<input type="hidden" id="agent_id" name="agent_id" value="${sessionScope.agent }"> 
 							<div class="form-group">
 								<input type="text" class="form-control" id="property_title" name="property_title" placeholder="타이틀">
 							</div>
@@ -156,14 +157,15 @@
 								<input type="text" class="form-control" id="description" name="description" placeholder="매물설명">
 							</div>
 
-							<!-- <div class="form-group">
-								<label for="file">이미지</label> <input type="file" name='file'
-									maxlength="60" size="40">
-							</div> -->
+							<div class="form-group">
+								<label for="file">이미지</label> 
+								<input type="file" name='file' maxlength="60" size="40">
+							</div>
 
 							<!-- 기타 필드들을 추가할 수 있습니다. -->
 							<div class="form-group">
 								<button type="submit" class="btn btn-primary btn-block">등록하기</button>
+							
 							</div>
 						</form>
 					</article>

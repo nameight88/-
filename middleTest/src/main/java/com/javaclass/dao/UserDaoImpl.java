@@ -1,7 +1,10 @@
 package com.javaclass.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.ResultType;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -33,10 +36,11 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	@Override
-	public boolean Login(String inputId, String inputPass) {
+	public int Login(String inputId, String inputPass) {
 		List<Object> resultId = ss.selectList("user.loginId",inputId);
 		List<Object> resultPass = ss.selectList("user.loginPass",inputPass);
-		System.out.println("Iam 결과에요:"+resultId+resultPass);
+		List<Object> resultType = ss.selectList("user.loginType",inputId);
+		System.out.println("Iam 결과에요: "+resultId+resultPass);
 		
 		boolean idMatch = resultId.contains(inputId); // 아이디가 일치하는지 확인
 	    boolean passMatch = resultPass.contains(inputPass); // 비밀번호가 일치하는지 확인
@@ -44,11 +48,79 @@ public class UserDaoImpl implements UserDao{
 	    if (idMatch && passMatch) {
 	        // 아이디와 비밀번호가 모두 일치하는 경우
 	        System.out.println("아이디와 비밀번호가 일치합니다.");
-	        return true;
+	        if(resultType.contains("관리자")) {
+	        	return 3;
+	        }else if(resultType.contains("중개인")) {
+	        	return 2;
+	        }else {
+	        	return 1;
+	        }
+	        
 	    } else {
 	        // 아이디 또는 비밀번호가 일치하지 않는 경우
 	        System.out.println("아이디 또는 비밀번호가 일치하지 않습니다.");
-	        return false;
+	        return 0;
 	    }
+	}
+	
+	// 계정찾기 - 아이디
+	@Override
+	public String findAccountId(String inputEmail) {
+		String resultId = ss.selectOne("user.findId",inputEmail);
+		System.out.println("Iam 결과에요: "+inputEmail+" 받고 "+resultId);
+		
+		if(resultId == null) {resultId = "없음";}
+		
+		return resultId;
+	}
+	
+	// 이메일 중복검사
+	@Override
+	public boolean emailCheck(String checkEmail) {
+		List<Object> resultEmail = ss.selectList("user.checkEmail",checkEmail);
+		if(resultEmail == null || resultEmail.isEmpty()) {
+			// 이메일이 없으면
+			return true;
+		}else
+			// 이메일이 있으면
+			return false;
+	}
+	
+	// 계정찾기 - 비밀번호
+	@Override
+	public boolean findAccountPass(String inputPwId, String inputPwEmail) {
+		List<Object> resultId = ss.selectList("user.checkPwId",inputPwId);
+		List<Object> resultEmail = ss.selectList("user.checkPwEmail",inputPwEmail);
+		
+		boolean passIdMatch = resultId.contains(inputPwId); 			// 아이디가 일치하는지 확인
+	    boolean passEmailMatch = resultEmail.contains(inputPwEmail); 	// 비밀번호가 일치하는지 확인
+	    
+		if(passIdMatch && passEmailMatch) {
+			System.out.println("비밀번호 찾기 - 아이디와 이메일이 일치합니다.");
+			return true;
+		}else
+	
+		return false;
+	}
+	
+	// 계정찾기 - 비밀번호 찾은 후 수정(고객)
+	@Override
+	public int changeNewUserPassword(String inputNewPw, String rememberId) {
+		 Map<String, Object> params = new HashMap<String, Object>();
+		 params.put("inputNewPw", inputNewPw);
+		 params.put("rememberId", rememberId);
+		
+		int result = ss.update("user.changeNewUserPass", params);
+		return result;
+	}
+	// 계정찾기 - 비밀번호 찾은 후 수정(중개인)
+	@Override
+	public int changeNewAgentPassword(String inputNewPw, String rememberId) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("inputNewPw", inputNewPw);
+		params.put("rememberId", rememberId);
+		
+		int result = ss.update("user.changeNewAgentPass", params);
+		return result;
 	}
 }

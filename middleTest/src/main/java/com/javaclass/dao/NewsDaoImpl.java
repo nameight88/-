@@ -16,13 +16,16 @@ public class NewsDaoImpl implements NewsDao{
 
 	@Override
 	public List<NewsVO> getNewsList() {
-		System.out.println("mybatis getNewsList 호출 확인 ");
+		//System.out.println("mybatis getNewsList 호출 확인 ");
 		return mybatis.selectList("news.getNewsList");
 	}
 
+	
 	@Override
-	public void deleteNews(NewsVO vo) {
-		mybatis.delete("news.newsDelete",vo);
+	public void deleteNews(int news_num) {
+		//System.out.println("mybatis delete 요청 확인 "+news_num);
+		 mybatis.delete("news.newsDelete",news_num);
+		 
+		
 	}
-
 }

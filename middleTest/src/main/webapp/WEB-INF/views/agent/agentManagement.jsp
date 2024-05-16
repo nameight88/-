@@ -50,6 +50,7 @@
 			<br /> <br /> <br /> <br />
 			<div class="col-lg-9">
 				<div class="table-responsive">
+					<input type="hidden" id="agent_id" name="agent_id" value="${sessionScope.agent }"> 
 					<br />
 					<br />
 					<br />
@@ -59,6 +60,7 @@
 						<thead>
 							<tr>
 								<th>매물 번호</th>
+								<th>거래 유형</th>
 								<th>종류</th>
 								<th>주소</th>
 								<th>등록일</th>
@@ -73,6 +75,7 @@
 							<c:forEach items="${propertyList}" var="propertyList">
 								<tr>
 									<td>${propertyList.property_id }</td>
+									<td>${propertyList.property_cate }</td>
 									<td>${propertyList.property_type }</td>
 									<td>${propertyList.property_addr }</td>
 									<td>${propertyList.reg_date }</td>
