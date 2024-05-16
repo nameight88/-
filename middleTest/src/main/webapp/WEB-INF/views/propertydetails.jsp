@@ -412,7 +412,7 @@
 					</div>
 				</div>
 				<div class="reportDivTag">
-				<button class="reportButton btn btn-primary btn-block">(허위매물 신고)</button>
+				<button class="reportButton btn btn-danger btn-block">범인은 한기진(허위매물 신고)</button>
 				</div>
 			</div>
 			<div class="col-lg-4" >
