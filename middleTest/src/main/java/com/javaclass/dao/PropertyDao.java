@@ -10,13 +10,13 @@ import com.javaclass.vo.PropertyVO;
 public interface PropertyDao {
 
 	// 매물 등록
-	public void insertProperty(PropertyVO vo);
+	public void insertProperty(PropertyVO vo, PropertyOptionVO optionVO, PropertySecurityVO securityVO);
 
 	// 매물 수정
-	public void updateProperty(String propertyId);
+	public void updateProperty(PropertyVO vo, PropertyOptionVO optionVO, PropertySecurityVO securityVO);
 
 	// 매물 삭제
-	public void deleteProperty(PropertyVO vo);
+	public void deleteProperty(String propertyId);
 
 	// 매물 목록 조회
 	public List<PropertyVO> getPropertyList(PropertyVO vo);
@@ -26,10 +26,14 @@ public interface PropertyDao {
 	// 매물 상세 조회
 	public PropertyVO getProperty(String propertyId);
 
-	// 매물 옵션 등록
-	public void insertOption(PropertyOptionVO optionVO);
+	public PropertyOptionVO getPropertyOption(String propertyId);
 
-	// 매물 보안 등록
-	public void insertSecurity(PropertySecurityVO securityVO);
+	public PropertySecurityVO getPropertySecurity(String propertyId);
+
+	// 맵 리스트
+	public List<PropertyVO> getPropertyMapList(PropertyVO vo);
+
+
+
 
 }

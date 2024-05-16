@@ -25,7 +25,7 @@
 				<h4 class="card-title mt-3 text-center">LOGIN</h4>
 				<br>
 				<!-- 로그인 ID/PW 입력공간 -->
-				<form class="login" action="loginForm" method="post"   enctype="multipart/form-data" >
+				<form class="login" action="loginForm" method="post" enctype="multipart/form-data" >
 					<table>
 						<tr>
 							<td><b>아이디</b></td>

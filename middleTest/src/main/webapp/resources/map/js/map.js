@@ -135,7 +135,7 @@ function updateMap(map, searchText){
 
 			// 인포윈도우로 장소에 대한 설명을 표시합니다
 			var infowindow = new kakao.maps.InfoWindow({
-				content: '<div style="padding:5px;font-size:12px;">매물위치</div>'
+				content: '<div style="width:150px;text-align:center;padding:6px 0;">매물위치</div>'
 			});
 			infowindow.open(map, marker);
 
@@ -144,7 +144,19 @@ function updateMap(map, searchText){
 		}else{
 			alert("주소를 찾을 수 없습니다.");
 		}
-	});  
+	}); 
+	
+	
+	// 주변시설
+	var mapContainer2 = document.getElementById('map2');
+	
+	var mapOptions2 = {
+			center: new kakao.maps.LatLng(37.5665, 126.9780), // 서울의 좌표
+			level: 3
+	};
+	
+	var map2 = new kakao.maps.Map(mapContainer2, mapOptions2);
+	 
 }
 
 

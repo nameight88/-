@@ -20,23 +20,25 @@
 			<article class="card-body mx-auto" style="max-width: 400px;">
 			    <h4 class="card-title mt-3 text-center">Create Account</h4>
 			    <br>   
-				<form class="signupForm" action="transfer2" enctype="multipart/form-data">
+				<form class="signupForm" action="transfer2" method='post' enctype="multipart/form-data">
 				  	<div class="form-desc"><h6><b>고객정보를 입력해주세요</b></h6></div>
 				  	
 					<!-- div:중개인 아이디 -->
 					<div class="form-desc">아이디</div>
+					<div><span class="resultIdMessage" ><h6></h6></span></div>
 					<div class="form-group input-group">
 						<div class="input-group-prepend"><span class="input-group-text"> <i class="fa fa-id-badge"></i> </span></div>
-					    <input name="agent_id" class="form-control" placeholder="2~15자 영문,숫자 조합" pattern="[A-Za-z0-9]{2,15}" type="text" value="${ propAgent.propAgentName }" required="required">
-					    <input type="checkbox" name="idCheckBox" class="id-checkbox" value="id 중복확인" style="display: none;">
+					    <input name="agent_id" class="form-control" placeholder="2~15자 영문,숫자 조합" pattern="[A-Za-z0-9]{2,10}" type="text" value="${ propAgent.propAgentName }" required="required">
+					    <input type="checkbox" name="idCheckBox" class="form-control" value="id 중복확인" style="display: none;">
 					    <button id='idCheck' class='idCheck'>중복확인</button>
 					</div>
+					
 					
 					<!-- div:중개인 비밀번호 -->
 					<div class="form-desc">비밀번호</div>
 					<div class="form-group input-group">
 					    <div class="input-group-prepend"><span class="input-group-text"> <i class="fa fa-tty"></i></span></div>
-					    <input name="agent_password" class="form-control" placeholder="2~15자 영문,숫자 조합" pattern="[A-Za-z0-9]{2,15}" type="text" value="" required="required">
+					    <input name="agent_password" class="form-control" placeholder="2~15자 영문,숫자 조합" pattern="[A-Za-z0-9]{2,10}" type="text" value="" required="required">
 					</div>
 
 					<!-- div:중개인 비밀번호 확인 -->
@@ -52,7 +54,7 @@
 					    <div class="input-group-prepend">
 							<span class="input-group-text"> <i class="fa fa-user"></i> </span>
 						</div>
-					    <input name="agent_name" class="form-control" pattern="[가-힣]{2,5}" placeholder="${ customer.customerName }" type="text" value="${ customer.customerName }" required="required">
+					    <input name="agent_name" class="form-control" pattern="[가-힣]{2,6}" placeholder="${ customer.customerName }" type="text" value="${ customer.customerName }" required="required">
 					</div>
 					
 					<!-- div:중개인 전화번호 입력 -->
@@ -66,12 +68,13 @@
 					
 					<!-- div:중개인 이메일  -->
 					<div class="form-desc">이메일</div>
+					<div><span class="resultMessage" ></span></div>
 					<div class="form-group input-group">
 					    <div class="input-group-prepend"><span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
 						</div>
 					    <input name="agent_email" class="form-control" placeholder="${ customer.customerEmail }" type="email" value="${ customer.customerEmail }" required="required">
 					</div>
-
+					
 	
 					
 					<!-- div:중개인 정보 - 면허번호 입력 -->
@@ -88,18 +91,16 @@
 					<div class="form-desc"></div>
 					<div class="form-group input-group">
 					    <div class="input-group-prepend"><span class="input-group-text"> <i class="fa fa-address-card"></i> </span></div>
-					    <input name="agency" class="form-control" placeholder="사무소 이름 작성란" type="text" value="${ customer.customerPhone }" required="required">
+					    <input name="agency" class="form-control" placeholder="사무소 이름 작성란" type="text" value="" required="required">
 					</div>
 					
 					<!-- div:중개인 증명사진 입력 -->
 					<div class="form-desc"></div>
 					<div class="form-group input-group">
 					    <div class="input-group-prepend"><span class="input-group-text"> <i class="fa fa-folder"></i> </span></div>
-					    <input name="agentImg_url" class="form-control" placeholder="중개인의 증명사진을 첨부" type="file" value="${ customer.customerPhone }" required="required">
+					    <input name="file" type="file" required="required" maxlength="60" size="40">
 					</div>
-					<div class="addinput"></div>
-					
-				    <!-- div:form-group input-group -->
+					<!-- div:form-group input-group -->
 				    <div class="form-group">
 				        <input type="submit" class="btn btn-primary btn-block" value="계정 만들기"></input>
 				    </div>

@@ -35,6 +35,7 @@
 			<div class="form-row">
 				<div class="form-group col-md-3">
 					<select name="property_type" id="property_type" class="form-control">
+						<option>전체</option>
 						<option>원룸</option>
 						<option>투룸</option>
 						<option>오피스텔</option>
@@ -43,6 +44,7 @@
 				</div>
 				<div class="form-group col-md-3">
 					<select name="property_cate" id="property_cate" class="form-control">
+						<option>전체</option>
 						<option>월세</option>
 						<option>전세</option>
 						<option>매매</option>
@@ -69,17 +71,21 @@
 			<!--  다방 -->
 			<div class="col-md-5">
 				<div class="result-list">
-					<h4>검색 결과</h4>
+				
 					<ul class="list-unstyled bg-ligh">
 						<c:forEach items="${propertyList}" var="property">
 							<li class="media mb-3">
-							<img class="mr-3 property-image"
-								src="http://placehold.it/200x200" alt="매물 이미지">
+							<input type="hidden" id="property_id" name="property_id" value="${property.property_id }">
+							<img class="mr-3 property-image" src="resources/propertyImg/${property.property_realfname}" alt="매물 이미지" style="width: 200px; height: 200px" >
 								<div class="media-body">
-
-									<p class="price">${property.price}</p>
+									<h5>
+										${property.property_cate}
+										
+										 ${property.price }/${property.deposit }
+									</h5>
+									
 									<p class="property-type">${property.property_type}</p>
-									<p class="property-size">${property.property_size}</p>
+									<p class="property-size">${property.property_size}평</p>
 									<p class="description">${property.description}</p>
 									<p class="property_addr">${property.property_addr}</p>
 									
@@ -101,6 +107,18 @@
 		src="resources/mainPage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="resources/map/js/map.js"></script>
 	<script src="resources/nav/js/nav.js"></script>
+	<script type="text/javascript">
+	
+	// 클릭한 li의 요소의 id값을 가지고 상세매물 페이지로 이동
+	$(".media").click(function(){
+		var propertyId = $(this).find("#property_id").val();
+	    alert(propertyId);
+		
+		location.href = "propertydetails?property_id=" + propertyId;
+		
+	});
+	
+	</script>
 
 </body>
 <!-- Footer -->

@@ -21,8 +21,10 @@ public class NewsServiceImpl implements NewsService{
 		}
 
 		@Override
-		public void deleteNews(NewsVO vo) {
-			
-			newsDAO.deleteNews(vo);
+		public void deleteNews(int news_num) {
+			//System.out.println("newsService 요청 확인 "+news_num);
+			newsDAO.deleteNews(news_num);
+			 
 		}
+		
 }

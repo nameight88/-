@@ -13,6 +13,6 @@ public interface NewsService {
 	//뉴스목록보기
 	public List<NewsVO> getNewsList();
 	//뉴스기사 삭제
-	void deleteNews(NewsVO vo);
 
+	void deleteNews(int news_num);
 }

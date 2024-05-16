@@ -38,7 +38,7 @@
 			<div class="col-lg-3">
 				<h1 class="my-4">관리자 페이지</h1>
 				<div class="list-group">
-					<a href="managerPage" class="list-group-item">매물 허가</a>
+					<a href="managerPage" class="list-group-item">뉴스 관리</a>
 					<a href="manageReservation" class="list-group-item active">회원 관리</a>
 					<a href="managereport" class="list-group-item">신고</a>
 					<!--  <a href="managerQnA" class="list-group-item">QnA</a> -->

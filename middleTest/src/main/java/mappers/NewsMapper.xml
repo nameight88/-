@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="news">
-	<!-- 
-	<insert id="insertCustomer" parameterType="com.javassem.vo.CustomerVO">	
-	INSERT INTO tx_customer(num, ssn, NAME, address) 
-	VALUES(customer_tx_seq.nextval, #{ssn},#{name},#{address})
-	</insert>
-	 -->
 	 
-	 <delete id= "newsDelete" parameterType="com.javaclass.vo.NewsVO">
+	 <delete id= "newsDelete" parameterType="int">
 			DELETE FROM news 
 			WHERE news_num = #{news_num}
 			</delete>
@@ -20,4 +14,5 @@
 			ORDER BY news_num DESC
 		
 	</select> 
+
 </mapper>
