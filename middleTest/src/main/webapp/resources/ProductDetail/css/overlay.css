@@ -1,0 +1,26 @@
+@charset "UTF-8";
+.overlay{
+  /*オーバーレイのCSS*/	
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  width: 100vw;
+  height:100vh;
+  display: none;
+  background: rgba(0,0,0,0.6);
+}
+body > div > div > div.container.overlay > div{
+	top:100px;
+}
+
+.overlay-inner{
+  padding:10px 60px;
+  background-color:#FFF;
+  text-align:center;
+}
+.open-btn, .close-btn{
+  display:block;
+  background-color:#eee;
+  border:solid #ccc 1px;
+  cursor: pointer;
+}
