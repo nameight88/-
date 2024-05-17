@@ -14,7 +14,8 @@
 	rel="stylesheet">
 <link href="resources/mainPage/css/heroic-features.css" rel="stylesheet">
 <!-- 오버레이 css파일 적용 추가 5/16 -->
-<link href="/middleTest/resources/ProductDetail/css/overlay.css" rel="stylesheet">
+<link href="/middleTest/resources/ProductDetail/css/overlay.css"
+	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <!-- Kakao Maps SDK -->
@@ -23,8 +24,10 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <!-- js파일 연동 추가 -->
- <script type="text/javascript" src="/middleTest/resources/ProductDetail/js/overlay.js"></script>
- <script type="text/javascript" src="/middleTest/resources/ProductDetail/js/report.js"></script>
+<script type="text/javascript"
+	src="/middleTest/resources/ProductDetail/js/overlay.js"></script>
+<script type="text/javascript"
+	src="/middleTest/resources/ProductDetail/js/report.js"></script>
 </head>
 <!-- Navigation -->
 <%@include file="/WEB-INF/views/common/nav.jsp"%>
@@ -365,7 +368,7 @@
 						<div class="col-md-12">
 							<div id="map2" style="height: 400px"></div>
 						</div>
-						<br/>
+						<br />
 						<!--편의 시설 혹시 모르니깐 넣어둔거  -->
 						<div class="row">
 
@@ -379,77 +382,85 @@
 								<p>지하철</p>
 							</div>
 							<div class="col-lg-2">
-							<span> <svg xmlns="http://www.w3.org/2000/svg"
-									class="Layer_1" data-name="Layer 1" width="40" height="40"
-									viewBox="0 0 24 24">
+								<span> <svg xmlns="http://www.w3.org/2000/svg"
+										class="Layer_1" data-name="Layer 1" width="40" height="40"
+										viewBox="0 0 24 24">
 												<path
-										d="M22,8V3.79c0-1.04-.626-1.956-1.595-2.332-1.711-.665-4.559-1.458-8.405-1.458S5.306,.793,3.594,1.458c-.968,.376-1.594,1.292-1.594,2.332v4.21H0v4c0,1.103,.897,2,2,2v7h2v3h4v-3h8v3h4v-3h2v-7c1.103,0,2-.897,2-2v-4h-2ZM3,13V6H21v7H3ZM15,5h-6v-1h6v1ZM3.957,2.39c1.336-.519,4.157-1.39,8.043-1.39s6.708,.871,8.044,1.39c.581,.226,.956,.775,.956,1.4v1.21h-5V3H8v2H3v-1.21c0-.625,.375-1.174,.957-1.4ZM1,12v-3h1v4c-.551,0-1-.449-1-1Zm6,11h-2v-2h2v2Zm12,0h-2v-2h2v2Zm2-3H3v-6h3v1.5c0,.276,.224,.5,.5,.5s.5-.224,.5-.5v-1.5h10v1.5c0,.276,.224,.5,.5,.5s.5-.224,.5-.5v-1.5h3v6Zm2-8c0,.551-.448,1-1,1v-4h1v3Z" /></svg>
-							</span>
-							<p>버스</p>
+											d="M22,8V3.79c0-1.04-.626-1.956-1.595-2.332-1.711-.665-4.559-1.458-8.405-1.458S5.306,.793,3.594,1.458c-.968,.376-1.594,1.292-1.594,2.332v4.21H0v4c0,1.103,.897,2,2,2v7h2v3h4v-3h8v3h4v-3h2v-7c1.103,0,2-.897,2-2v-4h-2ZM3,13V6H21v7H3ZM15,5h-6v-1h6v1ZM3.957,2.39c1.336-.519,4.157-1.39,8.043-1.39s6.708,.871,8.044,1.39c.581,.226,.956,.775,.956,1.4v1.21h-5V3H8v2H3v-1.21c0-.625,.375-1.174,.957-1.4ZM1,12v-3h1v4c-.551,0-1-.449-1-1Zm6,11h-2v-2h2v2Zm12,0h-2v-2h2v2Zm2-3H3v-6h3v1.5c0,.276,.224,.5,.5,.5s.5-.224,.5-.5v-1.5h10v1.5c0,.276,.224,.5,.5,.5s.5-.224,.5-.5v-1.5h3v6Zm2-8c0,.551-.448,1-1,1v-4h1v3Z" /></svg>
+								</span>
+								<p>버스</p>
 							</div>
 							<div class="col-lg-2">
-							<span> <svg xmlns="http://www.w3.org/2000/svg"
-									class="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"
-									width="40" height="40">
+								<span> <svg xmlns="http://www.w3.org/2000/svg"
+										class="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"
+										width="40" height="40">
 												<path
-										d="m21.5,6h-1.5v-3.5c0-1.378-1.121-2.5-2.5-2.5H6.5c-1.379,0-2.5,1.122-2.5,2.5v3.5h-1.5c-1.379,0-2.5,1.122-2.5,2.5v15.5h24v-15.5c0-1.378-1.121-2.5-2.5-2.5ZM1,23v-14.5c0-.827.673-1.5,1.5-1.5h1.5v16H1Zm18,0H5V2.5c0-.827.673-1.5,1.5-1.5h11c.827,0,1.5.673,1.5,1.5v20.5Zm4,0h-3V7h1.5c.827,0,1.5.673,1.5,1.5v14.5Zm-15-9h3v1h-3v-1Zm5,0h3v1h-3v-1Zm-5,4h3v1h-3v-1Zm5,0h3v1h-3v-1Zm-.5-10.5v2.5h-1v-2.5h-2.5v-1h2.5v-2.5h1v2.5h2.5v1h-2.5Z" /></svg>
-							</span>
-							<p>병원</p>
+											d="m21.5,6h-1.5v-3.5c0-1.378-1.121-2.5-2.5-2.5H6.5c-1.379,0-2.5,1.122-2.5,2.5v3.5h-1.5c-1.379,0-2.5,1.122-2.5,2.5v15.5h24v-15.5c0-1.378-1.121-2.5-2.5-2.5ZM1,23v-14.5c0-.827.673-1.5,1.5-1.5h1.5v16H1Zm18,0H5V2.5c0-.827.673-1.5,1.5-1.5h11c.827,0,1.5.673,1.5,1.5v20.5Zm4,0h-3V7h1.5c.827,0,1.5.673,1.5,1.5v14.5Zm-15-9h3v1h-3v-1Zm5,0h3v1h-3v-1Zm-5,4h3v1h-3v-1Zm5,0h3v1h-3v-1Zm-.5-10.5v2.5h-1v-2.5h-2.5v-1h2.5v-2.5h1v2.5h2.5v1h-2.5Z" /></svg>
+								</span>
+								<p>병원</p>
 							</div>
-							<div class="col-lg-2">		
-							<span> <svg xmlns="http://www.w3.org/2000/svg"
-									class="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"
-									width="40" height="40">
+							<div class="col-lg-2">
+								<span> <svg xmlns="http://www.w3.org/2000/svg"
+										class="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"
+										width="40" height="40">
  												 <path
-										d="m11,23.5c0,.276-.224.5-.5.5h-6c-1.93,0-3.5-1.57-3.5-3.5v-9.558c-.617-.631-1-1.492-1-2.442C0,8.459,2.015.379,2.015.379c.056-.223.255-.379.485-.379h19c.229,0,.429.156.485.379,0,0,2.015,8.08,2.015,8.121,0,.862-.316,1.691-.892,2.333-.185.206-.5.224-.706.039-.206-.184-.223-.5-.039-.706.397-.444.622-1.013.636-1.608l-1.89-7.559h-4.109v3.5c0,.276-.224.5-.5.5s-.5-.224-.5-.5V1h-8v3.5c0,.276-.224.5-.5.5s-.5-.224-.5-.5V1H2.891l-1.89,7.559c.032,1.352,1.141,2.441,2.5,2.441h1c1.378,0,2.5-1.122,2.5-2.5,0-.276.224-.5.5-.5s.5.224.5.5c0,1.378,1.122,2.5,2.5,2.5h1c.276,0,.5.224.5.5s-.224.5-.5.5h-1c-1.28,0-2.39-.698-3-1.726-.61,1.028-1.72,1.726-3,1.726h-1c-.539,0-1.044-.133-1.5-.351v8.851c0,1.379,1.122,2.5,2.5,2.5h6c.276,0,.5.224.5.5Zm13-6c0,3.584-2.916,6.5-6.5,6.5s-6.5-2.916-6.5-6.5,2.916-6.5,6.5-6.5,6.5,2.916,6.5,6.5Zm-1,0c0-3.032-2.467-5.5-5.5-5.5s-5.5,2.468-5.5,5.5,2.467,5.5,5.5,5.5,5.5-2.468,5.5-5.5Zm-2.857-1.369l-2.706,2.618c-.337.33-.886.334-1.223.004l-1.363-1.345c-.196-.194-.513-.191-.707.004-.194.197-.192.514.005.707l1.364,1.347c.362.354.837.531,1.312.531s.951-.178,1.311-.533l2.703-2.614c.198-.192.204-.509.012-.707-.191-.198-.508-.203-.707-.012Z" />
+											d="m11,23.5c0,.276-.224.5-.5.5h-6c-1.93,0-3.5-1.57-3.5-3.5v-9.558c-.617-.631-1-1.492-1-2.442C0,8.459,2.015.379,2.015.379c.056-.223.255-.379.485-.379h19c.229,0,.429.156.485.379,0,0,2.015,8.08,2.015,8.121,0,.862-.316,1.691-.892,2.333-.185.206-.5.224-.706.039-.206-.184-.223-.5-.039-.706.397-.444.622-1.013.636-1.608l-1.89-7.559h-4.109v3.5c0,.276-.224.5-.5.5s-.5-.224-.5-.5V1h-8v3.5c0,.276-.224.5-.5.5s-.5-.224-.5-.5V1H2.891l-1.89,7.559c.032,1.352,1.141,2.441,2.5,2.441h1c1.378,0,2.5-1.122,2.5-2.5,0-.276.224-.5.5-.5s.5.224.5.5c0,1.378,1.122,2.5,2.5,2.5h1c.276,0,.5.224.5.5s-.224.5-.5.5h-1c-1.28,0-2.39-.698-3-1.726-.61,1.028-1.72,1.726-3,1.726h-1c-.539,0-1.044-.133-1.5-.351v8.851c0,1.379,1.122,2.5,2.5,2.5h6c.276,0,.5.224.5.5Zm13-6c0,3.584-2.916,6.5-6.5,6.5s-6.5-2.916-6.5-6.5,2.916-6.5,6.5-6.5,6.5,2.916,6.5,6.5Zm-1,0c0-3.032-2.467-5.5-5.5-5.5s-5.5,2.468-5.5,5.5,2.467,5.5,5.5,5.5,5.5-2.468,5.5-5.5Zm-2.857-1.369l-2.706,2.618c-.337.33-.886.334-1.223.004l-1.363-1.345c-.196-.194-.513-.191-.707.004-.194.197-.192.514.005.707l1.364,1.347c.362.354.837.531,1.312.531s.951-.178,1.311-.533l2.703-2.614c.198-.192.204-.509.012-.707-.191-.198-.508-.203-.707-.012Z" />
 												</svg>
-							</span>
-							<p>마트</p>
+								</span>
+								<p>마트</p>
 							</div>
 						</div>
-						
+						<!-- 허위매물 신고 -->
+						<form class="decalarationFrm" action="report" method="post">
+							<div>
+								<input name="property_id" type="hidden"
+									value="${property.property_id}">
+							</div>
+							<div class="reportDivTag">
+								<input type="submit"
+									class="reportButton btn btn-danger btn-block"
+									value="범인은 한기진(허위매물 신고)">
+							</div>
+						</form>
+
+
+					</div>
+					<div class="col-lg-4">
+						<%@include file="/WEB-INF/views/propDetail/propNav.jsp"%>
+					</div>
+
+					<div class="container overlay">
+						<div class=" card bg-light mt-4">
+							<div class="card-body overlay-inner">
+								<h5 class="card-title">연락처</h5>
+								<hr>
+								<p class="card-text">
+									<i class="fas fa-phone mr-2"></i>010-1234-5678
+								</p>
+								<p class="card-text">
+									<i class="far fa-envelope mr-2"></i>example@example.com
+								</p>
+								<h5 class="card-title mt-4">관심 매물</h5>
+								<hr>
+								<button type="button"
+									class="btn btn-primary btn-block close-btn">예약하기</button>
+							</div>
+						</div>
 
 					</div>
 				</div>
-				<div class="reportDivTag">
-				<button class="reportButton btn btn-danger btn-block">범인은 한기진(허위매물 신고)</button>
-				</div>
-			</div>
-			<div class="col-lg-4" >
-			<%@include file="/WEB-INF/views/propDetail/propNav.jsp"%>
-			</div>
-
-			<div class="container overlay" >
-				<div class=" card bg-light mt-4">
-					<div class="card-body overlay-inner">
-						<h5 class="card-title">연락처</h5>
-						<hr>
-						<p class="card-text">
-							<i class="fas fa-phone mr-2"></i>010-1234-5678
-						</p>
-						<p class="card-text">
-							<i class="far fa-envelope mr-2"></i>example@example.com
-						</p>
-						<h5 class="card-title mt-4">관심 매물</h5>
-						<hr>
-						<button type="button" class="btn btn-primary btn-block close-btn">예약하기</button>
-					</div>
-				</div>
-				
 			</div>
 		</div>
-	</div>
 
 
-
-	<!-- Bootstrap core JavaScript -->
-	<script src="resources/mainPage/vendor/jquery/jquery.min.js"></script>
-	<script
-		src="resources/mainPage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="resources/map/js/propertymap.js"></script>
-	<script src="resources/nav/js/nav.js"></script>
-
+		<!-- Bootstrap core JavaScript -->
+		<script src="resources/mainPage/vendor/jquery/jquery.min.js"></script>
+		<script
+			src="resources/mainPage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="resources/map/js/propertymap.js"></script>
+		<script src="resources/nav/js/nav.js"></script>
 </body>
 <!-- Footer -->
-<%@include file="/WEB-INF/views/common/footer.jsp"%>
+
+<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </html>

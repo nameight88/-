@@ -1,7 +1,5 @@
 package com.javaclass.vo;
 
-import org.apache.ibatis.type.Alias;
-
 import lombok.Data;
 
 //@Alias("cvo")

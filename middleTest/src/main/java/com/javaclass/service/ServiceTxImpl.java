@@ -1,13 +1,8 @@
 package com.javaclass.service;
 
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.ResultType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.javaclass.dao.AgentDao;
 import com.javaclass.dao.UserDao;
 import com.javaclass.vo.AgentVO;

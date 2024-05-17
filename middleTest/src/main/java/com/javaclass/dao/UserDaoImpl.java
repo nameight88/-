@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.ResultType;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,14 +15,17 @@ public class UserDaoImpl implements UserDao{
 	@Autowired
 	private SqlSessionTemplate ss;
 	
+	@Override
 	public void insertUser(UserVO vo){
 		ss.insert("user.insertUser", vo);
 	}
 	
+	@Override
 	public void findIdUser(UserVO vo){
 		ss.selectOne("user.findIdUser", vo);
 	}
 
+	@Override
 	public boolean IdCheck(String checkBeforeId) {
 		List<Object> result = ss.selectList("user.idCheck",checkBeforeId);
 		System.out.println("Iam 결과에요:"+result);

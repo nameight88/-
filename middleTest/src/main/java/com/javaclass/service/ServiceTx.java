@@ -1,9 +1,5 @@
 package com.javaclass.service;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.ResultType;
-
 import com.javaclass.vo.AgentVO;
 import com.javaclass.vo.UserVO;
 

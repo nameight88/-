@@ -3,7 +3,7 @@ package com.javaclass.vo;
 import lombok.Data;
 
 @Data
-public class ReportVO {
+public class DeclarationVO {
 
 	private int declaration_num; //신고번호
 	private String user_id; //유저 아이디 
