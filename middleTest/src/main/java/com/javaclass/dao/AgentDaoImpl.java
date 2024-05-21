@@ -11,6 +11,7 @@ public class AgentDaoImpl implements AgentDao{
 	@Autowired
 	private SqlSessionTemplate ss;
 	
+	@Override
 	public void insertAgent(AgentVO vo){
 		ss.insert("agent.insertAgent", vo);
 		

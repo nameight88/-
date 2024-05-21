@@ -64,22 +64,18 @@
 						</thead>
 						<tbody>
 							<!-- 여기에 매물 행을 동적으로 추가할 수 있습니다. -->
+						<c:forEach var="declaration" items="${declarationList}">
 							<tr>
-								<td>1</td>
-								<td>강남 부동산</td>
-								<td>spring2222</td>
-								<td>허위매물</td>
+								<td><a>${declaration.declaration_num}</a></td>
+								<td><a>${declaration.property_id }</a></td>
+								<td><a>${declaration.user_id}</a></td>
+								<td><a>${declaration.declaration_contents}</a></td>
+								<td><a>${declaration.agent_id}</a></td>
 								<td><button class="btn btn-success">수락</button></td>
 								<td><button class="btn btn-danger">반려</button></td>
 							</tr>
-							<tr>
-								<td>2</td>
-								<td>서초 부동산</td>
-								<td>gjgj3333</td>
-								<td>갔더니 다 팔렸다 함</td>
-								<td><button class="btn btn-success">수락</button></td>
-								<td><button class="btn btn-danger">반려</button></td>
-							</tr>
+						</c:forEach>
+							
 							<!-- 추가적인 매물 행들을 여기에 추가할 수 있습니다. -->
 						</tbody>
 					</table>

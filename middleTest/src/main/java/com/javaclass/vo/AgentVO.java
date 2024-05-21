@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
-import org.apache.ibatis.type.Alias;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
