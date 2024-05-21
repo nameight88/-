@@ -14,12 +14,13 @@ public class NewsController {
 	private NewsService newsSerivce;
 
 	
-	@GetMapping("/manage/deleteNews")
+	@RequestMapping("/manage/deleteNews")
 	@ResponseBody
 	public String deleteNews(@RequestParam int news_num) {
-	   // System.out.println("삭제 신호 확인 "+news_num);
+	   
 	    newsSerivce.deleteNews(news_num);
 	    return "success";
+	
 	}
 	
 

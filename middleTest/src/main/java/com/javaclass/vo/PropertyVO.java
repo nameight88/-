@@ -19,8 +19,9 @@ public class PropertyVO {
 	private String property_cate; // 거래유형
 	private String property_addr; // 주소
 	private String post_code; // 우편번호
-	private int price; // 가격
-	private int deposit; // 보증금
+	private String addr_detail; // 상세주소
+	private long price; // 가격
+	private long deposit; // 보증금
 	private int property_size; // 크기
 	private int bedrooms; // 침실수
 	private int bathrooms; // 욕실수
@@ -31,7 +32,9 @@ public class PropertyVO {
 	private PropertySecurityVO propertySecurity;
 	private int property_count; // 조회수
 	private String agent_id; // 중개인 아이디
-
+	
+	
+	
 	private ServletContext servletContext;
 	MultipartFile file; // ****** type='file'의 name명과 동일
 	private String property_fname; // 파일 이름
@@ -58,8 +61,13 @@ public class PropertyVO {
 
 			// 실제파일 저장
 			// [오늘의 과제] 추후에 웹서버 경로를 찾아서 수정
+			// /Users/kangchaeeun/springweb/middleTest/src/main/webapp/resources/propertyImg
+			//File f = new File("D:\\springweb\\middleTest\\src\\main\\webapp\\resources\\propertyImg\\" + property_realfname);
+			//File f = new File("/Users/kangchaeeun/springweb/middleTest/src/main/webapp/resources/propertyImg/" + property_realfname);
+			
+			// 서버 컴퓨터
 			File f = new File("D:\\springweb\\middleTest\\src\\main\\webapp\\resources\\propertyImg\\" + property_realfname);
-
+			
 			try {
 				file.transferTo(f); // 실제 전송
 			} catch (IllegalStateException e) {				
@@ -69,35 +77,6 @@ public class PropertyVO {
 			}
 
 		}
-
-
-		// 업로드 파일이 있는 경우
-//		if (!file.isEmpty()) {
-//			this.property_fname = file.getOriginalFilename();
-//			this.property_fsize = file.getSize();
-//
-//			// 실제 저장된 파일명 만들기
-//			UUID uuid = UUID.randomUUID();
-//			this.property_realfname = uuid.toString() + "_" + property_fname;
-//
-//			// 실제파일 저장
-//			String uploadDir = servletContext.getRealPath("\\resources\\propertyImg\\");
-//			File uploadPath = new File(uploadDir);
-//
-//			if (!uploadPath.exists()) {
-//				uploadPath.mkdirs(); // 디렉토리가 존재하지 않으면 생성
-//			}
-//			File f = new File(uploadPath, property_realfname);
-//
-//			try {
-//				file.transferTo(f); // 실제 전송
-//			} catch (IllegalStateException e) {
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//
-//		}
 
 	}
 

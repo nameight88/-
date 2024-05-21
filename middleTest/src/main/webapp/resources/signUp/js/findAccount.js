@@ -12,7 +12,7 @@
 		    data: {inputEmail},
 		    dataType: "text",
 		    success:function(result){
-		    		alert(result);
+		    		//alert(result);
 					if(result == "??" ){
 						alert("해당 이메일을 가진 아이디가 없습니다. 계정생성 페이지로 이동하겠습니다.")
 						window.location.href = "signUp1";
@@ -27,7 +27,34 @@
 		}
 	});
 	
-
+	// enter를 눌렀을 때 이벤트 발생 
+	$('.findAccount-Id').keydown(function(event){
+		var inputEmail = $(".findId_email").val();
+		if (event.key === 'Enter') {
+			event.preventDefault();
+			$.ajax({
+		    type: "POST",
+		    url: "findId", // 서버의 로그인 엔드포인트 URL
+		    data: {inputEmail},
+		    dataType: "text",
+		    success:function(result){
+		    		//alert(result);
+					if(result == "??" ){
+						alert("해당 이메일을 가진 아이디가 없습니다. 계정생성 페이지로 이동하겠습니다.")
+						window.location.href = "signUp1";
+					}else {
+					alert(inputEmail+"에 해당하는 ID는 '"+result+"' 입니다.");
+					}
+					
+			},error: function(err) {
+				console.log(err);
+			}
+			});// end of ajax
+		}
+	})// enter 를 누르며 ㄴ
+	
+	
+	
 	$(".btn[name=findPassButton]").click(function(event){
 		
 		var inputPwId = $(".findPass[name=findPass_id]").val();
@@ -46,18 +73,19 @@
 		    dataType: "json",
 		    success:function(result){
 				if(result){
-					alert("해당 이메일: "+inputPwEmail+" 과 아이디:"+inputPwId+"의 비밀번호 변경 페이지로 이동하겠습니다.")
+					alert("해당 이메일: "+inputPwEmail+" 과 \n아이디: "+inputPwId+"의 비밀번호 변경 페이지로 이동하겠습니다.")
 					window.open("changePass", "_blank", "width=500,height=300");
+					location.href = "/middleTest/login";
 				}else {
-				
+					alert("해당 정보가 없습니다. 회원가입 페이지로 이동하겠습니다.")
+					window.location.href = "signUp1"
 				}	
 			},error: function(err) {
 				console.log(err);
 			}
-			});
+			});// end of ajax
 		}
-		rememberId = inputPwId;
-	});
+	});// end of pass-click event
 	
 	
 	$(".btn[name=changeAccountPass]").click(function(event){
@@ -83,6 +111,7 @@
 				if(result == 1){
 					alert("해당 비밀번호로 변경되었습니다.")
 					window.close();
+					
 				}	
 			},error: function(err) {
 				console.log(err);

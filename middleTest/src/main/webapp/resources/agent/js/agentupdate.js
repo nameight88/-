@@ -5,7 +5,7 @@ $(function(){
 	$("button[name='update']").click(function(){
 		
 		var propertyId = $(this).closest("tr").find("td:first").text();
-		alert("수정할 매물의 아이디: " + propertyId);
+		//alert("수정할 매물의 아이디: " + propertyId);
 		
 		location.href = "agentDetail?id=" + propertyId;
 		

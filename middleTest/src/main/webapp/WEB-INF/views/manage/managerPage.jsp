@@ -14,7 +14,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
-
 <script type="text/javascript">
 	$(function() {
 		$('.delete_newslist').click(function() {
@@ -29,6 +28,7 @@
 					
 				},
 				error : function(xhr, status, error) {
+					
 					console.error(error);
 					console.error(news_num);
 				}
@@ -59,7 +59,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3">
-				<h1 class="my-4">관리자 페이지</h1>
+				<h2 class="my-4">관리자 페이지</h2>
 				<div class="list-group">
 					<a href="managerPage" class="list-group-item active">뉴스관리</a> <a
 						href="manageReservation" class="list-group-item">회원관리</a> <a
@@ -67,15 +67,14 @@
 					<!--  <a href="managerQnA" class="list-group-item">QnA</a> -->
 
 				</div>
-				<br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-				<br /> <br /> <br /> <br /> <br />
+				<br /> <br /> <br /> <br /><br /> <br /> <br /> <br /><br /> <br /> <br /> <br />
+				<br /> <br /> <br /> <br /><br /> <br /> <br /> <br /><br /> <br /> <br /> <br />
 			</div>
 
 			<div class="col-lg-9">
 				<div class="table-responsive">
 					<br /> <br /> <br /> <br />
-					<!-- 뉴스 관리 게시판 -->
-					<table class="table table-bordered table-hover newsList">
+					<table class="table table-bordered table-hover">
 
 						<thead>
 							<tr>
@@ -97,13 +96,24 @@
 								<tr>
 								</tr>
 							</c:forEach>
+							<!-- 추가적인 매물 행들을 여기에 추가할 수 있습니다. -->
 						</tbody>
 					</table>
 				</div>
+				 <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <c:forEach begin="1" end="${totalPages}" var="i">
+                            <li class="page-item ${currentPage == i ? 'active' : ''}">
+                                <a class="page-link" href="?page=${i}&size=${size}">${i}</a>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </nav>
 			</div>
 		</div>
 	</div>
 
+	<!-- newsListMain of end -->
 	<!-- /.container -->
 	<!-- Footer -->
 	<%@include file="/WEB-INF/views/common/footer.jsp"%>

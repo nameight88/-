@@ -45,7 +45,7 @@
 					<a href="agentReservation" class="list-group-item">예약관리</a>
 				</div>
 				<br /> <br /> <br /> <br /><br /> <br /> <br /> <br /><br /> <br /> <br /> <br />
-				<br /> <br /> <br /> <br />
+				<br /> <br /> <br /> <br /><br /> <br /> <br /> <br /><br /> <br /> <br /> <br />
 			</div>
 			<br /> <br /> <br /> <br />
 			<div class="col-lg-9">
@@ -53,8 +53,9 @@
 					<input type="hidden" id="agent_id" name="agent_id" value="${sessionScope.agent }"> 
 					<br />
 					<br />
-					<br />
-					<br />
+					<h4 class="card-title mt-3 text-center">
+						<strong>매물 관리</strong>
+					</h4>
 					<table class="table table-bordered table-hover">
 
 						<thead>
@@ -86,6 +87,29 @@
 						</tbody>
 					</table>
 				</div>
+				<nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <c:if test="${currentPage > 1}">
+                            <li class="page-item">
+                                <a class="page-link" href="?page=${currentPage - 1}&size=${pageSize}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        </c:if>
+                        <c:forEach var="i" begin="1" end="${totalAgentProperty / pageSize + (totalAgentProperty % pageSize == 0 ? 0 : 1)}">
+                            <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                <a class="page-link" href="?page=${i}&size=${pageSize}">${i}</a>
+                            </li>
+                        </c:forEach>
+                        <c:if test="${currentPage * pageSize < totalAgentProperty}">
+                            <li class="page-item">
+                                <a class="page-link" href="?page=${currentPage + 1}&size=${pageSize}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </c:if>
+                    </ul>
+                </nav>
 			</div>
 
 			<br /> <br />

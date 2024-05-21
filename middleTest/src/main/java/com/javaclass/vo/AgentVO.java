@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+import org.apache.ibatis.type.Alias;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
@@ -46,8 +47,14 @@ public class AgentVO {
 
 	         // 실제파일 저장
 	         // [오늘의 과제] 추후에 웹서버 경로를 찾아서 수정
-	         File f = new File("C:\\Users\\ict03_030\\git\\MiddleProject\\middleTest\\src\\main\\webapp\\resources\\upload\\" + agent_realfname);
+	         //File f = new File("C:\\Users\\ict03_030\\git\\MiddleProject\\middleTest\\src\\main\\webapp\\resources\\upload\\" + agent_realfname);
 
+			 //File f = new File("/Users/kangchaeeun/springweb/middleTest/src/main/webapp/resources/agentImg/" + agent_realfname);
+
+	         // 서버 컴퓨터
+	         File f = new File("D:\\springweb\\middleTest\\src\\main\\webapp\\resources\\agentImg\\" + agent_realfname);
+				
+	         
 	         try {
 	            file.transferTo(f); // 실제 전송
 	         } catch (IllegalStateException e) {            

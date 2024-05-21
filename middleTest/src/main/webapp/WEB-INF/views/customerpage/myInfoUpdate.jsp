@@ -27,23 +27,25 @@
 	<!-- Page Content -->
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-3 nav-col-lg-3">
-				<h1 class="my-4 nav-title">마이페이지</h1>
+			<div class="col-lg-3">
+				<h1 class="my-4">마이페이지</h1>
 				<div class="list-group">
 					<a href="myInfo" class="list-group-item active">내정보</a> <a
-						href="qnaAdmin" class="list-group-item">문의관리</a> <a
+						href="qnaAdmin" class="list-group-item">신고내역</a> <a
 						href="reservAdmin" class="list-group-item">예약관리</a>
 
 				</div>
+				<br /> <br /> <br /> <br /><br /> <br /> <br /> <br /><br /> <br /> <br /> <br />
+				<br /> <br /> <br /> <br /><br /> <br /> <br /> <br /><br /> <br /> <br /> <br />
 			</div>
-
+			
 
 
 
 
 <div class="col-lg-9">
     <div class="table-responsive">
-        <br /> <br /> <br /> <br />
+        <br /> <br />
         <table class="table">
             <thead>
             </thead>
@@ -54,28 +56,24 @@
                 <form action="updateSubmit" method="post"> <!-- submit.php는 제출 시 데이터를 처리하는 서버 측 스크립트 파일입니다. -->
                     <tr>
                         <td>ID</td>
-                        <td><input type="text" name="id"></td>
+                        <td><input type="text" id="user_id" name="user_id" value="${userInfo.user_id}" readonly></td>
                     </tr>
 
                     <tr>
                         <td>이름</td>
-                        <td><input type="text" name="name"></td>
+                        <td><input type="text" id="user_name" name="user_name" value="${userInfo.user_name}"></td>
                     </tr>
 
                     <tr>
                         <td>연락처</td>
-                        <td><input type="text" name="contact"></td>
+                        <td><input type="text" id="user_phone" name="user_phone" value="${userInfo.user_phone}"></td>
                     </tr>
 
                     <tr>
                         <td>이메일</td>
-                        <td><input type="email" name="email"></td>
+                        <td><input type="email" id="user_email" name="user_email" value="${userInfo.user_email}" readonly></td>
                     </tr>
 
-                    <tr>
-                        <td>소개</td>
-                        <td><textarea name="introduction"></textarea></td>
-                    </tr>
                     <tr>
                         <td colspan="2" class="text-center">
                             <button type="submit" class="btn btn-primary">제출</button>

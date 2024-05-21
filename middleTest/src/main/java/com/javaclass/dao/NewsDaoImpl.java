@@ -1,6 +1,8 @@
 package com.javaclass.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +17,20 @@ public class NewsDaoImpl implements NewsDao{
 	private SqlSessionTemplate mybatis;
 
 	@Override
-	public List<NewsVO> getNewsList() {
-		//System.out.println("mybatis getNewsList 호출 확인 ");
-		return mybatis.selectList("news.getNewsList");
+	public List<NewsVO> getNewsList(int offset,int size) {
+		Map<String,Integer> params = new HashMap<String,Integer>();
+		params.put("offset",offset);
+		params.put("size",size);
+		return mybatis.selectList("news.getNewsList",params);
 	}
+	public int getTotalNewsCount() {
+        return mybatis.selectOne("news.getTotalNewsCount");
+    }
 
 	
 	@Override
 	public void deleteNews(int news_num) {
-		//System.out.println("mybatis delete 요청 확인 "+news_num);
-		 mybatis.delete("news.newsDelete",news_num);
+		mybatis.delete("news.newsDelete",news_num);
 		 
 		
 	}

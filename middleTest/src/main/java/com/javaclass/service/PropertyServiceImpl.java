@@ -34,10 +34,8 @@ public class PropertyServiceImpl implements PropertyService {
 	}
 
 	@Override
-	public void deleteProperty(String propertyId) {
+	public void deleteProperty(int propertyId) {
 		propertyDao.deleteProperty(propertyId);
-
-
 	}
 
 	@Override
@@ -45,30 +43,22 @@ public class PropertyServiceImpl implements PropertyService {
 		return propertyDao.getPropertyList(vo);
 	}
 
-
-	@Override
-	public List<PropertyVO> searchMap(HashMap map) {
-		// TODO Auto-generated method stub
-		return propertyDao.searchMap(map);
-	}
-
 	
 	// 매물 상세 조회
-	
 	@Override
-	public PropertyVO getProperty(String propertyId) {
+	public PropertyVO getProperty(int propertyId) {
 		return propertyDao.getProperty(propertyId);
 	}
 
 
 	@Override
-	public PropertyOptionVO getPropertyOption(String propertyId) {
+	public PropertyOptionVO getPropertyOption(int propertyId) {
 		return propertyDao.getPropertyOption(propertyId);
 	}
 
 
 	@Override
-	public PropertySecurityVO getPropertySecurity(String propertyId) {
+	public PropertySecurityVO getPropertySecurity(int propertyId) {
 		return propertyDao.getPropertySecurity(propertyId);
 	}
 
@@ -78,8 +68,34 @@ public class PropertyServiceImpl implements PropertyService {
 		return propertyDao.getPropertyMapList(vo);
 	}
 
+	@Override
+	public List<PropertyVO> getNewProperty() {
+		return propertyDao.getNewProperty();
+	}
 
 	
+	// 맵 페이징
+	@Override
+	public List<PropertyVO> searchMap(HashMap map, int page, int pageSize) {
+		int offset = (page - 1) * pageSize;
+		return propertyDao.searchMap(map, offset, pageSize);
+	}
+
+	@Override
+	public int getPropertiesCount(HashMap map) {
+		return propertyDao.getPropertiesCount(map);
+	}
+
+	@Override
+	public List<PropertyVO> getPropertyList(PropertyVO vo, int page, int size) {
+		int offset = (page - 1) * size;
+		return propertyDao.getPropertyList(vo, offset, size);
+	}
+
+	@Override
+	public int getTotalAgentProperty(String agent_id) {
+		return propertyDao.getTotalAgentProperty(agent_id);
+	}
 
 
 }

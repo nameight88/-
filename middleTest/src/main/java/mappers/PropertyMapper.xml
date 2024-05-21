@@ -8,22 +8,68 @@
 
 	<!-- <select id="getPropertyList", resultType="com.javaclass.vo.PropertyVO"> 
 		SELECT*FROM property </select> -->
-
+<!-- 해당 중개인이 입력한 매물 list	 -->
 	<select id="getPropertyList"
 		resultType="com.javaclass.vo.PropertyVO">
 		SELECT * FROM property
 		WHERE agent_id = #{agent_id}
 	</select>
 
-
+<!-- 매물 리스트 -->
 	<select id="getPropertyMapList"
 		resultType="com.javaclass.vo.PropertyVO">
 		SELECT * FROM property
 	</select>
+	<!--  신규 매물 -->
+	<select id="getNewProperty"
+		resultType="com.javaclass.vo.PropertyVO">
+		SELECT * FROM property
+		ORDER BY property_id desc LIMIT 4
+	</select>
 
 <!--  매물검색기능 -->
-	<select id="searchMap" resultType="com.javaclass.vo.PropertyVO">
+ 	<select id="searchMap" parameterType="hashmap" resultType="com.javaclass.vo.PropertyVO">
 		SELECT*FROM property
+		<if test="property_cate == '전체' and property_type == '전체' and property_addr == ''">
+			WHERE 1 = 1
+			LIMIT #{offset}, #{pageSize}
+		</if>
+		<if test="property_cate != '전체' and property_type == '전체' and property_addr == ''">
+			WHERE property_cate = #{property_cate}
+			LIMIT #{offset}, #{pageSize}
+		</if>
+		<if test="property_cate == '전체' and property_type != '전체' and property_addr == ''">
+			WHERE property_type = #{property_type}
+			LIMIT #{offset}, #{pageSize}
+		</if>
+		<if test="property_cate == '전체' and property_type == '전체' and property_addr != ''">
+			WHERE property_addr like '%${searchText}%'
+			LIMIT #{offset}, #{pageSize}
+		</if>
+		<if test="property_cate != '전체' and property_type != '전체' and property_addr == ''">
+			WHERE property_cate = #{property_cate} AND property_type =
+			#{property_type}
+			LIMIT #{offset}, #{pageSize}
+		</if>
+		<if test="property_cate == '전체' and property_type != '전체' and property_addr != ''">
+			WHERE property_type = #{property_type} AND property_addr like
+			'%${searchText}%'
+			LIMIT #{offset}, #{pageSize}
+		</if>
+		<if test="property_cate != '전체' and property_type == '전체' and property_addr != ''">
+			WHERE property_cate = #{property_cate} AND property_addr like
+			'%${searchText}%'
+			LIMIT #{offset}, #{pageSize}
+		</if>
+		<if test="property_cate != '전체' and property_type != '전체' and property_addr != ''">
+			WHERE property_cate = #{property_cate} AND property_type =
+			#{property_type} AND property_addr like '%${searchText}%'
+			LIMIT #{offset}, #{pageSize}
+		</if>
+
+	</select>
+	<select id="getPropertiesCount" parameterType="hashmap" resultType="int">
+		SELECT count(*) FROM property
 		<if test="property_cate == '전체' and property_type == '전체' and property_addr == ''">
 			WHERE 1 = 1
 		</if>
@@ -52,7 +98,6 @@
 			WHERE property_cate = #{property_cate} AND property_type =
 			#{property_type} AND property_addr like '%${searchText}%'
 		</if>
-
 	</select>
 
 	<!-- 검색 (매물,옵션,보안) -->
@@ -104,6 +149,10 @@
 		property_title=#{property_title}, property_cate=#{property_cate},
 		price=#{price}, deposit=#{deposit},
 		description=#{description}
+		<if test="property_fname != null">
+		,property_fname=#{property_fname}, property_realfname=#{property_realfname}, 
+		property_fsize=#{property_fsize}
+		</if>
 		WHERE property_id = #{property_id}
 
 	</update>
@@ -134,16 +183,14 @@
 
 	<!-- 입력 (매물,옵션,보안) -->
 	<insert id="insertProperty"
-		parameterType="com.javaclass.vo.PropertyVO" useGeneratedKeys="true"
-		keyProperty="property_id">
+		parameterType="com.javaclass.vo.PropertyVO">
 		INSERT INTO property (
 		property_title, property_type, property_cate,
 		property_addr, post_code,
 		price, deposit, property_size, bedrooms,
 		bathrooms, description,agent_id,
 		property_year, reg_date,
-		property_count,
-		security, property_option
+		property_count,addr_detail
 		<if test="property_fname != null">
 		,property_fname, property_realfname, property_fsize
 		</if>
@@ -155,13 +202,7 @@
 		#{price}, #{deposit},
 		#{property_size}, #{bedrooms}, #{bathrooms},
 		#{description},#{agent_id},
-		#{property_year}, now(), #{property_count},
-		<!-- #{propertySecurity.security_id}, #{propertyOption.option_id}, -->
-		(SELECT property_id FROM security WHERE property_id =
-		#{propertySecurity.property_id}),
-		(SELECT property_id FROM
-		property_option WHERE property_id =
-		#{propertyOption.property_id})
+		#{property_year}, now(), #{property_count},#{addr_detail}
 		<if test="property_fname != null">
 		,#{property_fname}, #{property_realfname}, #{property_fsize}
 		</if>
@@ -175,10 +216,6 @@
 		VALUES
 		(#{aircon}, #{refrigerator}, #{washing_machine}, #{shower_booth},
 		#{sink}, #{induction}, #{fire_alarm}, #{veranda}, #{tub})
-		<selectKey resultType="int" keyProperty="property_id"
-			order="AFTER">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
 	</insert>
 
 	<insert id="insertSecurity"
@@ -188,13 +225,21 @@
 		VALUES (#{storage_box}, #{cctv},
 		#{door_lock}, #{intercom},
 		#{entrance_security}, #{bodyguard})
-		<selectKey resultType="int" keyProperty="property_id"
-			order="AFTER">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
+		
 	</insert>
 
 
+	<select id="getPropertyPagingList" parameterType="hashmap" resultType="com.javaclass.vo.PropertyVO">
+		SELECT * FROM property
+		WHERE agent_id = #{agent_id}
+		LIMIT #{offset}, #{size}
+		
+	</select>
+	
+	<select id="getTotalAgentProperty" parameterType="String" resultType="int">
+		SELECT count(*) FROM property
+		WHERE agent_id = #{agent_id}
+	</select>
 
 
 

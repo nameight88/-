@@ -13,21 +13,19 @@
 <link href="resources/mainPage/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
 <link href="resources/mainPage/css/heroic-features.css" rel="stylesheet">
-<!-- 오버레이 css파일 적용 추가 5/16 -->
-<link href="/middleTest/resources/ProductDetail/css/overlay.css"
+<!-- 24/05/16 - ㄱㅈ - 중개인 연결 -->
+<link href="/middleTest/resources/ProductDetail/css/connectAgent.css"
 	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <!-- Kakao Maps SDK -->
 <script
-	src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=e4d5069dc9a490e0b400e0844235a47e&libraries=services"></script>
+	src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=e4d5069dc9a490e0b400e0844235a47e&libraries=services,clusterer"></script>
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<!-- js파일 연동 추가 -->
-<script type="text/javascript"
-	src="/middleTest/resources/ProductDetail/js/overlay.js"></script>
-<script type="text/javascript"
-	src="/middleTest/resources/ProductDetail/js/report.js"></script>
+
+
 </head>
 <!-- Navigation -->
 <%@include file="/WEB-INF/views/common/nav.jsp"%>
@@ -39,8 +37,27 @@
 				<br>
 				<div class="card bg-light">
 					<div class="card-body">
-						<h3 class="card-title">${property.property_title }</h3>
-						<hr>
+						<div class="row">
+							<div class="col-md-9">
+								<h3 class="card-title">${property.property_title}</h3>
+							</div>
+							<div class="col-md-3 d-flex justify-content-end">
+								<svg class="watchlist" xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24" width="40" height="40"
+									style="${watch ? 'display:none;' : 'display:block;'}">
+                    			<path
+										d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Zm-3.585,18.4a2.973,2.973,0,0,1-3.83,0C4.947,16.006,2,11.87,2,8.967a4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,11,8.967a1,1,0,0,0,2,0,4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,22,8.967C22,11.87,19.053,16.006,13.915,20.313Z" />
+              					</svg>
+								<svg class="watchlistDelete" xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24" width="40" height="40"
+									style="${watch ? 'display:block;' : 'display:none;'}">
+								<path
+										d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Z" /></svg>
+
+							</div>
+
+						</div>
+						<br />
 						<!-- 매물 이미지 슬라이드 -->
 
 						<div id="carouselExampleIndicators" class="carousel slide"
@@ -82,17 +99,30 @@
 
 						<div>
 							<br />
-							<h5 class="card-subtitle mb-2 text-muted">매물번호 :
-								${property.property_id }</h5>
+							<h5 class="card-subtitle mb-2 text-muted">
+								매물번호 : <span class="property_id">${property.property_id }</span>
+							</h5>
 							<br />
+
 							<h5 class="card-subtitle mb-2 text-muted">가격정보</h5>
 							<div>
 								<table class="table" id="price">
 									<tbody>
-										<tr>
-											<td>${property.property_cate }</td>
-											<td>${property.price }/${property.deposit }</td>
-										</tr>
+										<c:choose>
+										<c:when test="${property.property_cate == '월세'}">
+											<tr>
+												<td>${property.property_cate }</td>
+												<td>${property.deposit }/${property.price }</td>
+											</tr>
+										</c:when>
+										<c:otherwise>
+											<tr>
+												<td>${property.property_cate }</td>
+												<td>${property.price } 만원</td>
+											</tr>
+										</c:otherwise>
+									</c:choose>
+										
 									</tbody>
 								</table>
 								<br />
@@ -100,10 +130,6 @@
 								<h5 class="card-subtitle mb-2 text-muted">상세정보</h5>
 								<table class="table" id="info">
 									<tbody>
-										<tr>
-											<td>건물이름</td>
-											<td>로로아파트</td>
-										</tr>
 										<tr>
 											<td>방종류</td>
 											<td class="property_type">${property.property_type }</td>
@@ -121,12 +147,17 @@
 											<td class="bathrooms">${property.bathrooms }개</td>
 										</tr>
 										<tr>
+											<td>연식</td>
+											<td class="property_year">${property.property_year }</td>
+										</tr>
+										<tr>
 											<td>최초등록일</td>
 											<td class="reg_date">${property.reg_date }</td>
 										</tr>
+
 										<tr>
 											<td>주소</td>
-											<td class="property_addr">${property.property_addr }</td>
+											<td class="property_addr">${property.property_addr }&nbsp;${property.addr_detail }</td>
 										</tr>
 									</tbody>
 								</table>
@@ -372,7 +403,7 @@
 						<!--편의 시설 혹시 모르니깐 넣어둔거  -->
 						<div class="row">
 
-							<div class="col-lg-2">
+							<div class="col-lg-2" id="subway">
 								<span> <svg xmlns="http://www.w3.org/2000/svg"
 										class="Layer_1" data-name="Layer 1" width="40" height="40"
 										viewBox="0 0 24 24">
@@ -381,16 +412,17 @@
 								</span>
 								<p>지하철</p>
 							</div>
-							<div class="col-lg-2">
+							<div class="col-lg-2" id="bus">
 								<span> <svg xmlns="http://www.w3.org/2000/svg"
-										class="Layer_1" data-name="Layer 1" width="40" height="40"
-										viewBox="0 0 24 24">
-												<path
-											d="M22,8V3.79c0-1.04-.626-1.956-1.595-2.332-1.711-.665-4.559-1.458-8.405-1.458S5.306,.793,3.594,1.458c-.968,.376-1.594,1.292-1.594,2.332v4.21H0v4c0,1.103,.897,2,2,2v7h2v3h4v-3h8v3h4v-3h2v-7c1.103,0,2-.897,2-2v-4h-2ZM3,13V6H21v7H3ZM15,5h-6v-1h6v1ZM3.957,2.39c1.336-.519,4.157-1.39,8.043-1.39s6.708,.871,8.044,1.39c.581,.226,.956,.775,.956,1.4v1.21h-5V3H8v2H3v-1.21c0-.625,.375-1.174,.957-1.4ZM1,12v-3h1v4c-.551,0-1-.449-1-1Zm6,11h-2v-2h2v2Zm12,0h-2v-2h2v2Zm2-3H3v-6h3v1.5c0,.276,.224,.5,.5,.5s.5-.224,.5-.5v-1.5h10v1.5c0,.276,.224,.5,.5,.5s.5-.224,.5-.5v-1.5h3v6Zm2-8c0,.551-.448,1-1,1v-4h1v3Z" /></svg>
+										id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"
+										width="40" height="40">
+ 									 		<path
+											d="m21.5,6h-7.43l-1.346-1.303,4.394-2.197L12.118,0h-1.118v4.965l-1.07,1.035H2.5c-1.379,0-2.5,1.122-2.5,2.5v15.5h24v-15.5c0-1.378-1.121-2.5-2.5-2.5Zm0,1c.827,0,1.5.673,1.5,1.5v1.5h-4.798l-3.099-3h6.397ZM12,1.059l2.882,1.441-2.882,1.441V1.059ZM2.5,7h6.397l-3.099,3H1v-1.5c0-.827.673-1.5,1.5-1.5Zm11.5,16h-4v-6c0-1.103.897-2,2-2s2,.897,2,2v6Zm1,0v-6c0-1.654-1.346-3-3-3s-3,1.346-3,3v6H1v-12h5.202l5.798-5.612,5.798,5.612h5.202v12h-8ZM4,15h3v1h-3v-1Zm0,4h3v1h-3v-1Zm13-4h3v1h-3v-1Zm0,4h3v1h-3v-1Zm-4-9c0,.552-.448,1-1,1s-1-.448-1-1,.448-1,1-1,1,.448,1,1Z" />
+										</svg>
 								</span>
-								<p>버스</p>
+								<p>학교</p>
 							</div>
-							<div class="col-lg-2">
+							<div class="col-lg-2" id="hospital">
 								<span> <svg xmlns="http://www.w3.org/2000/svg"
 										class="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"
 										width="40" height="40">
@@ -399,7 +431,7 @@
 								</span>
 								<p>병원</p>
 							</div>
-							<div class="col-lg-2">
+							<div class="col-lg-2" id="mart">
 								<span> <svg xmlns="http://www.w3.org/2000/svg"
 										class="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"
 										width="40" height="40">
@@ -411,56 +443,194 @@
 							</div>
 						</div>
 						<!-- 허위매물 신고 -->
+						<!--  다윗 추가 -->
 						<form class="decalarationFrm" action="report" method="post">
 							<div>
 								<input name="property_id" type="hidden"
 									value="${property.property_id}">
 							</div>
 							<div class="reportDivTag">
-								<input type="submit"
-									class="reportButton btn btn-danger btn-block"
-									value="범인은 한기진(허위매물 신고)">
+								<input name="user_id" type="hidden" class="user-session"
+									value="${sessionScope.user}"> <input type="submit"
+									class="reportButton btn btn-danger btn-block" value="허위매물 신고">
 							</div>
 						</form>
-
-
-					</div>
-					<div class="col-lg-4">
-						<%@include file="/WEB-INF/views/propDetail/propNav.jsp"%>
-					</div>
-
-					<div class="container overlay">
-						<div class=" card bg-light mt-4">
-							<div class="card-body overlay-inner">
-								<h5 class="card-title">연락처</h5>
-								<hr>
-								<p class="card-text">
-									<i class="fas fa-phone mr-2"></i>010-1234-5678
-								</p>
-								<p class="card-text">
-									<i class="far fa-envelope mr-2"></i>example@example.com
-								</p>
-								<h5 class="card-title mt-4">관심 매물</h5>
-								<hr>
-								<button type="button"
-									class="btn btn-primary btn-block close-btn">예약하기</button>
-							</div>
-						</div>
-
+						<!-- 다윗끝 -->
 					</div>
 				</div>
 			</div>
+			<div class="col-lg-4">
+				<div class="card bg-light mt-4">
+					<div class="card-body">
+						<div class=" container">
+							<%@include file="/WEB-INF/views/propDetail/propNav.jsp"%>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- col-lg-4 -->
 		</div>
+		<div class="container overlay">
+			<div class=" card bg-light mt-4">
+				<div class="card-body overlay-inner" style="margin-top: 10px;">
+					<img id="agent-image"
+						src="resources/agentImg/${agent.agent_realfname}" alt="중개인 이미지"
+						width="100px" height="100px"><br> <br>
+					<table class="reservation-AgentInfo" id="reservation-AgentInfo">
+						<tr>
+							<td class="card-title"><span id="agent-name"><small><b>이름&nbsp;:&nbsp;</b></small></span></td>
+							<td><p class="card-text">
+									<small>${property.agent_id}</small>
+								</p></td>
+						</tr>
+						<tr>
+							<td class="card-title"><span id="agent-contact"><small><b>연락처&nbsp;:&nbsp;</b></small></span></td>
+							<td><p class="card-text">${agent.agent_phone}</p></td>
+						</tr>
+						<tr>
+							<td class="card-title"><span id="agent-email"><small><b>이메일&nbsp;:&nbsp;</b></small></span></td>
+							<td><p class="card-text">
+									<i class="far fa-envelope mr-2"></i>${agent.agent_email}</p></td>
+						</tr>
+					</table>
+					<hr>
+
+					<h5 class="card-title mt-4">
+						<b>집예약<b>
+					</h5>
+					<label for="time-slot">날짜 선택 :</label> <input type="date"
+						id="selected-date">
+
+					<div class="reservation_time">
+						<label for="time-slot"><small>시간 선택 :</small></label> <select
+							id="time-slot">
+							<option class="time-slot" value="00:00">선택</option>
+							<option class="time-slot" value="09:30">9:30</option>
+							<option class="time-slot" value="10:30">10:30</option>
+							<option class="time-slot" value="11:30">11:30</option>
+							<option class="time-slot" value="12:30">12:30</option>
+							<option class="time-slot" value="14:30">14:30</option>
+							<option class="time-slot" value="15:30">15:30</option>
+							<option class="time-slot" value="16:30">16:30</option>
+							<option class="time-slot" value="17:30">17:30</option>
+							<option class="time-slot" value="18:30">18:30</option>
+
+						</select>
+
+						<form action="reservationInsert" id="reservation-form"
+							style="display: none;">
+							<label for="reservation_date">예약 날짜:</label> <input type="date"
+								id="reservation_date" class="reservation_date"
+								name="reservation_date" readonly="readonly" required="required">
+							<label for="reservation_time">예약 시간:</label> <input type="time"
+								id="reservation_time" class="reservation_time"
+								name="reservation_time" readonly="readonly" required="required">
+							<label for="user_id">고객 id:</label> <input type="text"
+								id="user_id" name="user_id" readonly="readonly"
+								value="${sessionScope.user}" required="required"> <label
+								for="agent_id">중개인 id:</label> <input type="text" id="agent_id"
+								name="agent_id" readonly="readonly" value="${property.agent_id}"
+								required="required"> <label for="property_id">매물번호:</label>
+							<input type="text" id="property_id" name="property_id"
+								readonly="readonly" value="${property.property_id }"
+								required="required">
+						</form>
+
+						<hr>
+						<input type="submit" id="submit-btn"
+							class="btn btn-primary btn-block" value="예약하기"> <input
+							type="button" class="btn btn-primary btn-block close-btn"
+							value="나가기">
+						<hr>
+					</div>
+				</div>
+			</div>
+			<!-- end of layout space -->
+		</div>
+	</div>
+	<!-- layout event 시, 중개인 연결  ---------------------------------------------------------------------------- -->
 
 
-		<!-- Bootstrap core JavaScript -->
-		<script src="resources/mainPage/vendor/jquery/jquery.min.js"></script>
-		<script
-			src="resources/mainPage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<script src="resources/map/js/propertymap.js"></script>
-		<script src="resources/nav/js/nav.js"></script>
+
+
+
+
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="resources/mainPage/vendor/jquery/jquery.min.js"></script>
+	<script
+		src="resources/mainPage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="resources/map/js/propertymap.js"></script>
+	<script src="resources/map/js/categorymap.js"></script>
+	<!-- js파일 연동 추가 -->
+	<!-- 24/05/16 - ㄱㅈ - 중개인 연결 -->
+	<script type="text/javascript"
+		src="resources/ProductDetail/js/connectAgent.js"></script>
+
+	<script src="resources/nav/js/nav.js"></script>
+
+	<!-- 다윗추가 -->
+	<script type="text/javascript"
+		src="resources/ProductDetail/js/report.js"></script>
+	<script type="text/javascript">
+		// 관심매물 등록
+		$(".watchlist").click(function() {
+			var property_id = $(".property_id").text();
+
+			$.ajax({
+				type : "get",
+				url : "watchListInsert",
+				data : {
+					"property_id" : property_id
+				},
+				success : function(result) {
+					if (result === "1") {
+						alert("관심매물에 추가되었습니다.");
+						$(".watchlist").hide(); // watchlist 아이콘 숨기기
+						$(".watchlistDelete").show(); // watchlistDelete 아이콘 보이기
+					} else if (result === "0") {
+						alert("로그인한 회원만 이용 가능합니다.");
+						location.href = "login";
+
+					}
+				},
+				error : function(err) {
+					console.log(err);
+					alert(err);
+				}
+			});
+		});
+
+		// 관심매물 삭제
+		$(".watchlistDelete").click(function() {
+			var property_id = $(".property_id").text();
+
+			$.ajax({
+				type : "get",
+				url : "watchListDelete",
+				data : {
+					"property_id" : property_id
+				},
+				success : function(result) {
+					if (result === "1") {
+						alert("관심매물에서 제거되었습니다.");
+						$(".watchlistDelete").hide(); // watchlistDelete 아이콘 숨기기
+						$(".watchlist").show(); // watchlist 아이콘 보이기
+					} else if (result === "0") {
+						alert("로그인한 회원만 이용 가능합니다.");
+						location.href = "login";
+					}
+				},
+				error : function(err) {
+					console.log(err);
+				}
+
+			});
+
+		});
+	</script>
+
 </body>
 <!-- Footer -->
-
-<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+<%@include file="/WEB-INF/views/common/footer.jsp"%>
 </html>

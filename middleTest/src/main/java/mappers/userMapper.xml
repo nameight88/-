@@ -75,4 +75,20 @@
 	UPDATE agent SET agent_password = #{inputNewPw} WHERE agent_id = #{rememberId}
 	</update>
 	
+	
+	<!-- 채은 추가 userSelect -->
+	<select id="userSelect" parameterType="String" resultType="com.javaclass.vo.UserVO">
+	SELECT * FROM user
+	WHERE user_id = #{user_id}
+	</select>
+	<!--  채은 추가 userUpdate -->
+	<update id="userUpdate" parameterType="com.javaclass.vo.UserVO">
+	UPDATE user SET user_name = #{user_name}, user_phone=#{user_phone}
+	WHERE user_id = #{user_id}
+	</update>
+	<!-- 채은 추가 userInfoDelete -->
+	<delete id="userInfoDelete" parameterType="String">
+	Delete from user WHERE user_id = #{user_id}
+	</delete>
+	
 </mapper>

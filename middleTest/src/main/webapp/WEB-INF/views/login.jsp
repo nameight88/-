@@ -17,12 +17,9 @@
 	<div class="container">
 		<p class="text-center">More bootstrap 4 components on <a href="http://bootstrap-ecommerce.com/"> Bootstrap-ecommerce.com</a></p>
 		<hr>
-		<div id="logoContainer">
-			<a href="/"><h1>★부동산★ ♥맛동산♥ ♠놀이동산♠</h1></a>
-		</div>
-		<div class="card bg-light">
+		<div class="card bg-light" style=" width: 75%; margin-left: 180px; margin-top: 250px;">
 			<article class="card-body mx-auto" style="max-width: 400px;">
-				<h4 class="card-title mt-3 text-center">LOGIN</h4>
+				<h4 class="card-title mt-3 text-center"><b>LOGIN</b></h4>
 				<br>
 				<!-- 로그인 ID/PW 입력공간 -->
 				<form class="login" action="loginForm" method="post" enctype="multipart/form-data" >
@@ -33,11 +30,11 @@
 						</tr>
 						<tr>
 							<td><b>비밀번호</b></td>
-							<td><input type="text" id="inputPass" class="inputLogin" name="inputPass"></td>
+							<td><input type="password" id="inputPass" class="inputLogin" name="inputPass"></td>
 						</tr>
 					</table><br>
-				<div class="d-grid gap-2 col-6 mx-auto">
-					<button type="submit" class="btn btn-primary" id="btn-login" name="btn-login"> Login Account </button>
+				<div class="d-grid gap-2 ">
+					<button type="submit" class="btn btn-primary" id="btn-login" name="btn-login"> 로그인 </button>
 				</div>
 				</form>
 				<!-- 로그인 ID/PW 입력공간 끝-->
@@ -45,9 +42,9 @@
 	        		<span class="bg-light">OR</span>
 	    		</p>
 	    		<!-- 계정 찾기 및 생성 연결 공간 -->
-	    		<div class="d-grid gap-2 col-6 mx-auto">
-					<a href="signUp/signUp1"><button type="button" class="btn btn-primary" id="signupButton"> Create Account </button></a><br><br>
-					<a href="signUp/findAccount"><small>find account</small></a>
+	    		<div class="d-grid gap-2" style=" padding-left:76px;">
+					<a href="signUp/signUp1" id="signupButton" style="color: gray;"><small> 회원가입 </small></a><small style="color: gray;">&nbsp;&nbsp;<b>|</b>&nbsp;&nbsp; </small>
+					<a href="signUp/findAccount" style="color: gray;"><small>계정 찾기</small></a>
 				</div>
 			</article>
 			<!-- article:card-body mx-auto -->

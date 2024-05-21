@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.ResultType;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.javaclass.vo.AgentVO;
 import com.javaclass.vo.UserVO;
 
 @Repository
@@ -15,20 +17,16 @@ public class UserDaoImpl implements UserDao{
 	@Autowired
 	private SqlSessionTemplate ss;
 	
-	@Override
 	public void insertUser(UserVO vo){
 		ss.insert("user.insertUser", vo);
 	}
 	
-	@Override
 	public void findIdUser(UserVO vo){
 		ss.selectOne("user.findIdUser", vo);
 	}
 
-	@Override
 	public boolean IdCheck(String checkBeforeId) {
 		List<Object> result = ss.selectList("user.idCheck",checkBeforeId);
-		System.out.println("Iam 결과에요:"+result);
 		if(result == null || result.isEmpty()) {
 			// 아이디가 없으면
 			return true;
@@ -42,14 +40,12 @@ public class UserDaoImpl implements UserDao{
 		List<Object> resultId = ss.selectList("user.loginId",inputId);
 		List<Object> resultPass = ss.selectList("user.loginPass",inputPass);
 		List<Object> resultType = ss.selectList("user.loginType",inputId);
-		System.out.println("Iam 결과에요: "+resultId+resultPass);
 		
 		boolean idMatch = resultId.contains(inputId); // 아이디가 일치하는지 확인
 	    boolean passMatch = resultPass.contains(inputPass); // 비밀번호가 일치하는지 확인
 	    
 	    if (idMatch && passMatch) {
 	        // 아이디와 비밀번호가 모두 일치하는 경우
-	        System.out.println("아이디와 비밀번호가 일치합니다.");
 	        if(resultType.contains("관리자")) {
 	        	return 3;
 	        }else if(resultType.contains("중개인")) {
@@ -60,7 +56,6 @@ public class UserDaoImpl implements UserDao{
 	        
 	    } else {
 	        // 아이디 또는 비밀번호가 일치하지 않는 경우
-	        System.out.println("아이디 또는 비밀번호가 일치하지 않습니다.");
 	        return 0;
 	    }
 	}
@@ -69,7 +64,6 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public String findAccountId(String inputEmail) {
 		String resultId = ss.selectOne("user.findId",inputEmail);
-		System.out.println("Iam 결과에요: "+inputEmail+" 받고 "+resultId);
 		
 		if(resultId == null) {resultId = "없음";}
 		
@@ -124,5 +118,23 @@ public class UserDaoImpl implements UserDao{
 		
 		int result = ss.update("user.changeNewAgentPass", params);
 		return result;
+	}
+
+	@Override
+	public UserVO userSelect(String user_id) {
+		
+		return ss.selectOne("user.userSelect", user_id);
+	}
+
+	@Override
+	public void userUpdate(UserVO userVO) {
+		ss.update("user.userUpdate",userVO);
+		
+	}
+
+	@Override
+	public void userInfoDelete(String user_id) {
+		ss.delete("user.userInfoDelete",user_id);
+		
 	}
 }

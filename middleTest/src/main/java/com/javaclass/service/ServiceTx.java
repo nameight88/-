@@ -1,6 +1,11 @@
 package com.javaclass.service;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.ResultType;
+
 import com.javaclass.vo.AgentVO;
+import com.javaclass.vo.ReservationVO;
 import com.javaclass.vo.UserVO;
 
 
@@ -24,5 +29,33 @@ public interface ServiceTx {
 	public int changeNewUserPassword(String inputNewPw, String rememberId)throws Exception;
 
 	public int changeNewAgentPassword(String inputNewPw, String rememberId)throws Exception;
+	
+	
+	// 채은 중개인 정보 추가
+	public AgentVO agentSelect(String agentId);
+	
+	// 채은 중개인 정보 수정 추가
+	public void agentUpdate(AgentVO agentVO);
+	
+	// 채은 중개인 정보 삭제 추가
+	public void agentInfoDelete(String agentId);
+	
+	
+	// ----- 기진 추가
+	public void insertReservation(ReservationVO formData)throws Exception;
+
+	public List<ReservationVO> selectReservedTime(String reservation_date, String agent_id)throws Exception;
+	
+	
+	
+	// 채은 사용자 정보 출력 추가
+	public UserVO userSelect(String user_id);
+	// 채은 사용자 정보 수정 추가
+	public void userUpdate(UserVO userVO);
+	// 채은 사용자 정보 삭제 추가
+	public void userInfoDelete(String user_id);
+	
+	
+	
 
 }

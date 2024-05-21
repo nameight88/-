@@ -15,4 +15,19 @@
 	SELECT agent_realfname FROM agent WHERE agent_id = #{inputId}
 	</select>
 	
+	<!-- 채은 추가 agentSelect -->
+	<select id="agentSelect" parameterType="String" resultType="com.javaclass.vo.AgentVO">
+	SELECT * FROM agent
+	WHERE agent_id = #{agentId}
+	</select>
+	<!--  채은 추가 agentUpdate -->
+	<update id="agentUpdate" parameterType="com.javaclass.vo.AgentVO">
+	UPDATE agent SET agent_name = #{agent_name}, agent_phone=#{agent_phone},agency=#{agency}
+	WHERE agent_id = #{agent_id}
+	</update>
+	<!-- 채은 추가 agentInfoDelete -->
+	<delete id="agentInfoDelete" parameterType="String">
+	Delete from agent WHERE agent_id = #{agentId}
+	</delete>
+	
 </mapper>

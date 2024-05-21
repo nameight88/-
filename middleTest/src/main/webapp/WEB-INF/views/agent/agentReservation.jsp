@@ -31,7 +31,7 @@
 <!-- Navigation -->
 <%@include file="/WEB-INF/views/common/nav.jsp"%>
 <body>
-
+<!-- // 0518 기진 : 중개인페이지 - 예약관리 ---------------------------------------------------------------------- -->
 	<!-- Page Content -->
 	<div class="container">
 		<div class="row">
@@ -45,52 +45,90 @@
 				
 				</div>
 				<br /> <br /> <br /> <br /><br /> <br /> <br /> <br /><br /> <br /> <br /> <br />
-				<br /> <br /> <br /> <br />
+				<br /> <br /> <br /> <br /><br /> <br /> <br /> <br /><br /> <br /> <br /> <br />
 			</div>
 			<br /> <br /> <br /> <br />
 			<div class="col-lg-9">
-				<div class="table-responsive">
+			
+				<div class="table-responsive" name="reservationList">
 					<br />
 					<br />
-					<br />
-					<br />
-					<table class="table table-bordered table-hover">
-
+					<h4 class="card-title mt-3 text-center">
+						<strong>예약 관리</strong>
+					</h4>
+					<table id="reservationList" class="table table-bordered table-hover">
+					
 						<thead>
 							<tr>
-								<th>매물 번호</th>
+								<th>예약No.</th>
 								<th>종류</th>
 								<th>주소</th>
 								<th>회원ID</th>
 								<th>예약날짜</th>
-								<th>예약시간</th>
+								<th>예약</th>
 								<th>노쇼</th>
+								
 							</tr>
 						</thead>
 						<tbody>
-							<!-- 여기에 매물 행을 동적으로 추가할 수 있습니다. -->
-							<tr>
-								<td>1</td>
-								<td>아파트</td>
-								<td>서울특별시 강남구 신사동</td>
-								<td>spring1212</td>
-								<td>2024-01-20</td>
-								<td>13:00</td>
-								<td><button class="btn btn-danger">노쇼</button></td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>오피스텔</td>
-								<td>서울특별시 서초구 양재동</td>
-								<td>nono1233</td>
-								<td>2024-01-20</td>
-								<td>16:00</td>
-								<td><button class="btn btn-danger">노쇼</button></td>
-							</tr>
 							<!-- 추가적인 매물 행들을 여기에 추가할 수 있습니다. -->
+							<c:forEach var="reservationList" items="${reservationList}">
+							<tr>
+								<input type="hidden" id="reservation_id" name="reservation_id" value="${reservationList.reservation_id }">
+								<td>${reservationList.reservation_id}</td>
+								<td>${reservationList.type}</td>
+								<td><a href="/middleTest/propertydetails?property_id=${reservationList.property_id }">${reservationList.addr}</a></td>
+								<td>${reservationList.user_id}</td>
+								<td>${reservationList.reservation_date}<br/>${reservationList.reservation_time}</td>
+								
+								<td>
+								<c:choose>
+											<c:when test="${reservationList.status == '예약중'}">
+												<button class="btn btn-success regsuccess">승인</button>
+											</c:when>
+											<c:when test="${reservationList.status == '예약승인'}">
+												<button class="btn btn-danger regCancel">취소</button>
+											</c:when>
+										</c:choose>
+								</td>
+								<td><c:choose>
+											<c:when test="${reservationList.noshow == true}">
+												<button class="btn btn-success noshowCancel">취소</button>
+											</c:when>
+											<c:otherwise>
+												<button class="btn btn-danger noshow">노쇼</button>
+											</c:otherwise>
+										</c:choose>
+								</td>
+							</tr>
+						</c:forEach>
 						</tbody>
 					</table>
 				</div>
+				<nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <c:if test="${currentPage > 1}">
+                            <li class="page-item">
+                                <a class="page-link" href="?page=${currentPage - 1}&size=${pageSize}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        </c:if>
+                        <c:forEach var="i" begin="1" end="${totalPages / pageSize + (totalPages % pageSize == 0 ? 0 : 1)}">
+                            <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                <a class="page-link" href="?page=${i}&size=${pageSize}">${i}</a>
+                            </li>
+                        </c:forEach>
+                        <c:if test="${currentPage * pageSize < totalPages}">
+                            <li class="page-item">
+                                <a class="page-link" href="?page=${currentPage + 1}&size=${pageSize}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </c:if>
+                    </ul>
+                </nav>
+				
 			</div>
 
 			<br /> <br />
@@ -110,6 +148,134 @@
 
 	<script
 		src="../resources/ProductDetail/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		
+	<script type="text/javascript">
+	$(document).on("click", ".noshow", function() {
+		var $button = $(this);
+		 var reservation_id = $(this).closest("tr").find("input:first").val();
+		 var user_id = $(this).closest("tr").find("td").eq(3).text();
+		 
+		 
+		 $.ajax({
+				type 	: "get"
+				,url 	: "noshowInsert"
+				,data	: {"reservation_id" : reservation_id, "user_id" : user_id}
+				,success : function(result){
+					
+					if (result === "1"){
+		                //alert("노쇼등록");
+		               	$button.removeClass("btn-danger noshow").addClass("btn-success noshowCancel").text("취소");
+		                
+		            } else if (result === ""){
+		                //alert("취소 실패");
+		                
+		            }
+				}
+				,error:function(err){
+					console.log(err);
+				}
+				
+			});
+	});
+	
+	$(document).on("click", ".noshowCancel", function() {
+		var $button = $(this);
+	    var reservation_id = $button.closest("tr").find("#reservation_id").val();
+	    var user_id = $(this).closest("tr").find("td").eq(3).text();
+	    
+	    
+	    $.ajax({
+			type 	: "get"
+			,url 	: "noshowCancel"
+			,data	: {"reservation_id" : reservation_id, "user_id" : user_id}
+			,success : function(result){
+				
+				if (result === "1"){
+	                //alert("노쇼취소");
+	               $button.removeClass("btn-danger noshowCancel").addClass("btn-danger noshow").text("노쇼");
+	                
+	            } else if (result === ""){
+	                //alert("취소 실패");
+	                
+	            }
+			}
+			,error:function(err){
+				
+				console.log(err);
+			}
+			
+		});
+	    
+		
+	});
+	
+
+	$(document).on("click", ".regsuccess", function() {
+		var $button = $(this);
+		var reservation_id = $(this).closest("tr").find("input:first").val();
+		var user_id = $(this).closest("tr").find("td").eq(3).text();
+		
+		
+		$.ajax({
+			type 	: "get"
+			,url 	: "regsuccess"
+			,data	: {"reservation_id" : reservation_id, "user_id" : user_id}
+			,success : function(result){
+				
+				if (result === "1"){
+	                //alert("예약승인");
+	               $button.removeClass("btn-success regsuccess").addClass("btn-danger regCancel").text("취소");
+	                
+	            } else if (result === ""){
+	                //alert("예약승인 실패");
+	                
+	            }
+			}
+			,error:function(err){
+				
+				console.log(err);
+			}
+			
+		});
+		
+		
+		
+	});
+	
+	$(document).on("click", ".regCancel", function() {
+		var $button = $(this);
+		var reservation_id = $(this).closest("tr").find("input:first").val();
+		var user_id = $(this).closest("tr").find("td").eq(3).text();
+		
+		
+		$.ajax({
+			type 	: "get"
+			,url 	: "regCancel"
+			,data	: {"reservation_id" : reservation_id, "user_id" : user_id}
+			,success : function(result){
+				
+				if (result === "1"){
+	                //alert("예약취소");
+	               $button.removeClass("btn-danger regCancel").addClass("btn-success regsuccess").text("승인");
+	                
+	            } else if (result === ""){
+	                //alert("예약취소 실패");
+	                
+	            }
+			}
+			,error:function(err){
+				
+				console.log(err);
+			}
+			
+		});
+		
+		
+		
+		
+	});
+	
+	</script>
 </body>
 
 </html>

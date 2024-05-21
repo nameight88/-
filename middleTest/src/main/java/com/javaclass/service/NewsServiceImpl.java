@@ -11,20 +11,21 @@ import com.javaclass.vo.NewsVO;
 @Service
 public class NewsServiceImpl implements NewsService{
 
-		@Autowired
-		private NewsDao newsDAO;
+	@Autowired
+	private NewsDao newsDAO;
 
-		@Override
-		public List<NewsVO> getNewsList() {
-			
-			return newsDAO.getNewsList();
-		}
+	@Override
+	public List<NewsVO> getNewsList(int page,int size) {
+		int offset = (page - 1 )*size;
+		return newsDAO.getNewsList(offset,size);
+	}
+	public int getTotalNewsCount() {
+		return newsDAO.getTotalNewsCount();
+	};
+	@Override
+	public void deleteNews(int news_num) {
+		newsDAO.deleteNews(news_num);
 
-		@Override
-		public void deleteNews(int news_num) {
-			//System.out.println("newsService 요청 확인 "+news_num);
-			newsDAO.deleteNews(news_num);
-			 
-		}
-		
+	}
+
 }

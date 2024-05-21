@@ -17,6 +17,10 @@ body {
 	width: 100%;
 	height: 400px;
 }
-
+.mainPage{
+    background-size: cover; 
+    background-position: center;
+    
+}
 
 	

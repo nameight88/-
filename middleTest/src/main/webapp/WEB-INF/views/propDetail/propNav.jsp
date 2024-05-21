@@ -1,49 +1,84 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="resources/ProductDetail/css/propNav.css">
-<link href="/middleTest/resources/ProductDetail/css/overlay.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="resources/ProductDetail/css/connectAgent.css">
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 </head>
 <body>
-   <nav class="agentInfo">
-   <div class="card bg-light">
-      <div class="navInfo"><input class="propId" value="매물번호" readonly="readonly" size="8"><input class="propOwner" value="방주인" readonly="readonly" size="8"></div>
-      <div class="navInfo-price"><h4><b>매매 1억 9000만</b></h4></div>
-      <div class="navInfo-summury">
-         <ul>
-            <li><i class="fa fa-user" aria-hidden="true"></i>원룸</li>
-            <li><i class="fa fa-user" aria-hidden="true"></i>2평</li>
-            <li><i class="fa fa-user" aria-hidden="true"></i>2층/3층</li>
-            <li><i class="fa fa-user" aria-hidden="true"></i>10만원</li>
-         </ul>
-      </div>
-      <div>
-         <table>
-            <tr>
-               <td><b>방/욕실</b></td>
-               <td>1개1</td>
-            </tr>
-         </table>
-      </div><hr>
-      <div><h5><b>기진맥진 공인중개사무소</b></h5></div>
-      <div class="contectImg">
-         <table class="agentInfo">
-         <tr>
-         <td><button class="open-btn"><img alt="예약하기" src="resources/ProductDetail/image/contect.png"></button></td>
-         <td><button><img alt="예약하기" src="resources/ProductDetail/image/like_off.png"></button></td>
-         </tr>
-         <tr>
-         <td> 정보 더보기</td>
-         <td>찜하기</td>
-         </tr>
-         </table>
-      </div>
-      </div>
-   </nav>
+
+	<!-- 중개인 연결 ########################################### -->
+	<nav class="agentInfo">
+		<div class="agentInfo">
+			<div class="card bg-light" style="padding: 10px;">
+				<div class="navInfo">
+					<input class="propId" value="${property.property_id }"
+						readonly="readonly" size="8"
+						style="text-align: center; background-color: rgba(144, 238, 144, 0.8);">
+
+				</div>
+				<br>
+				<div class="navInfo-price" style="font-size: 1.5em;">
+					<c:choose>
+						<c:when test="${property.property_cate == '월세'}">
+							<strong>${property.property_cate}</strong>&nbsp;<strong>${property.deposit}</strong><strong>&nbsp;/&nbsp;${property.price}</strong>
+						</c:when>
+						<c:otherwise>
+							<strong>${property.property_cate}</strong>&nbsp;<strong>&nbsp;&nbsp;${property.price}</strong>
+							
+						</c:otherwise>
+					</c:choose>
+					
+					
+				</div>
+				<small>[단위:만원]</small>
+				<div class="navInfo-summury">
+					<table>
+						<tr>
+							<td><b>매물 정보 :</b></td>
+							<td>${property.property_type }/ ${property.property_size}평</td>
+						</tr>
+						<tr>
+							<td><b>방&nbsp;/&nbsp;욕실 :</b></td>
+							<td>${property.bedrooms }개&nbsp;/&nbsp;${property.bathrooms }개</td>
+						</tr>
+					</table>
+				</div>
+				<div>
+					<table>
+						<tr>
+							<td><b>매물 등록일 :</b></td>
+							<td>${property.reg_date }</td>
+						</tr>
+					</table>
+				</div>
+				<hr>
+				<div style="margin-left: 30%;">
+					<h5>
+						<b>${agent.agency}</b>
+					</h5>
+				</div>
+				<div class="contectImg">
+					<table class="agentInfo">
+						<tr>
+							<td><input type="button"
+								class="btn btn-primary btn-block open-btn" id="open-btn"
+								value="연락처 보기"
+								style="color: white; background-color: #007BFF; margin-left: 30%"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<!-- end of total div -->
+		</div>
+		<!-- end of agentInfo div -->
+	</nav>
+	<!-- end of agentInfo nav -->
+
 </body>
 </html>

@@ -27,6 +27,7 @@
 <link href="../resources/ProductDetail/css/shop-item.css" rel="stylesheet">
 <link href="../resources/agent/css/agent.css" rel="stylesheet">
 
+
 </head>
 
 <!-- Navigation -->
@@ -56,10 +57,10 @@
 						<form action="propertyInsert" method="post" enctype="multipart/form-data">
 							<input type="hidden" id="agent_id" name="agent_id" value="${sessionScope.agent }"> 
 							<div class="form-group">
-								<input type="text" class="form-control" id="property_title" name="property_title" placeholder="타이틀">
+								<input type="text" class="form-control" id="property_title" name="property_title" placeholder="타이틀" required>
 							</div>
 							<div class="form-group">
-								<input type="date" class="form-control" id="property_year" name="property_year" placeholder="연식">
+								<input type="date" class="form-control" id="property_year" name="property_year" placeholder="연식" required>
 							</div>
 							<div class="form-row">
 									
@@ -68,6 +69,7 @@
 									 <select class="form-control" id="property_type" name="property_type">
 										<option value="원룸">원룸</option>
 										<option value="투룸">투룸</option>
+										<option value="오피스텔">오피스텔</option>
 										<option value="아파트">아파트</option>
 										<option value="빌라">빌라</option>
 										<option value="주택">주택</option>
@@ -85,21 +87,44 @@
 								</div>
 							</div>
 							<div class="form-row">
+							
 								<div class="form-group col-md-8">
-									<input type="text" class="form-control" id="property_addr" name="property_addr" placeholder="주소">
+									<input type="text" class="form-control" id="post_code" name="post_code" placeholder="우편번호" required>
 								</div>
 								<div class="form-group col-md-4">
-									<input type="text" class="form-control" id="post_code" name="post_code" placeholder="우편번호">
+									<button type="button" id="addrSearch" class="btn btn-primary btn-block">주소찾기</button>
 								</div>
 							</div>
 							<div class="form-group">
-								<input type="text" class="form-control" id="property_size" name="property_size" placeholder="면적">
+								<input type="text" class="form-control" id="property_addr" name="property_addr" placeholder="주소" required>
 							</div>
 							<div class="form-group">
-								<input type="text" class="form-control" id="price" name="price" placeholder="가격">
+								<input type="text" class="form-control" id="addr_detail" name="addr_detail" placeholder="상세주소">
 							</div>
-							<div class="form-group">
-								<input type="text" class="form-control" id="deposit" name="deposit" placeholder="보증금" disabled="false">
+							<div class="form-row">
+								<div class="form-group col-md-10">
+									<input type="text" class="form-control" id="property_size" name="property_size" placeholder="면적" required>
+								</div>
+								<div class="form-group col-md-2">
+									<h5>평</h5>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-10">
+									<input type="text" class="form-control" id="price" name="price" placeholder="가격" required>
+								</div>
+								<div class="form-group col-md-2">
+									<h5>만원</h5>
+								</div>
+								
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-10">
+									<input type="text" class="form-control" id="deposit" name="deposit" placeholder="보증금" disabled="false">
+								</div>
+								<div class="form-group col-md-2">
+									<h5>만원</h5>
+								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
@@ -154,12 +179,12 @@
 							</div>
 
 							<div class="form-group">
-								<input type="text" class="form-control" id="description" name="description" placeholder="매물설명">
+								<textarea class="form-control" rows="3" cols="40" id="description" name="description" placeholder="매물설명" required></textarea>
+							
 							</div>
 
 							<div class="form-group">
-								<label for="file">이미지</label> 
-								<input type="file" name='file' maxlength="60" size="40">
+								<input type="file" name='file' maxlength="60" size="40" required>
 							</div>
 
 							<!-- 기타 필드들을 추가할 수 있습니다. -->
@@ -174,6 +199,10 @@
 				<br />
 			</div>
 		</div>
+	</div>
+	<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
+	<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
+	<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
 	</div>
 
 	<!-- /.container -->
@@ -190,14 +219,16 @@
 	<script
 		src="../resources/ProductDetail/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 		
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
     $('#property_cate').change(function() {
         // 선택된 거래 유형 값을 가져옴
         var transactionType = $(this).val();
-        alert(transactionType);
+       
+        
         
         // 만약 거래 유형이 '매매'라면
-        if (transactionType === '매매') {
+        if (transactionType == '전세' || transactionType == '매매') {
             // 보증금 입력 필드를 활성화
         	$('#deposit').prop('disabled', true).val('');
            
@@ -218,7 +249,37 @@
             $(this).val(false); // false 값을 설정
         }
     });
+	 
+	 // 주소찾기 카카오 api
+    $(document).on('click', '#addrSearch', function() {
+    	
+    	/* var popUrl = 'addrSearch'; // 팝업창에 표시할 주소 입력
+        var popOption = "width=400, height=500, resizable=no, scrollbars=yes, status=no;";    // 팝업창 옵션(optoin)
+        window.open(popUrl,"addressPopup",popOption); // 팝업창 오픈 */
+    	
+    	
+        new daum.Postcode({
+            oncomplete: function(data) { // 선택시 입력값 세팅
+            	$("#post_code").val(data.zonecode);
+                $("#property_addr").val(data.address); // 주소 넣기
+                $("#addr_detail").focus(); // 상세입력 포커싱
+            }
+        }).open({
+        	 popupName: 'addressPopup', // 팝업 이름 설정
+             popup: true, // 팝업으로 띄우기
+             autoResize: false, // 자동 조절 비활성화
+             width: 400, // 팝업 너비
+             height: 500 // 팝업 높이
+
+        });
+        
+        
+    });
+    
+    
+    
 </script>
+
 </body>
 
 </html>

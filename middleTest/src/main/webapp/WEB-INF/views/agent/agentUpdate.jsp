@@ -53,12 +53,12 @@
 						<h4 class="card-title mt-3 text-center">매물 수정</h4>
 						<br>
 						<!-- 매물 등록 폼 -->
-						<form action="propertyUpdate" method="get">
+						<form action="propertyUpdate" method="post" enctype="multipart/form-data">
 							<div class="form-group">
 								<input type="text" class="form-control" id="property_id" name="property_id" value="${property.property_id}" readonly>
 							</div>
 							<div class="form-group">
-								<input type="text" class="form-control" id="property_title" name="property_title" value="${property.property_title }">
+								<input type="text" class="form-control" id="property_title" name="property_title" value="${property.property_title }" required>
 							</div>
 							<div class="form-group">
 								<input type="date" class="form-control" id="property_year" name="property_year" value="${property.property_year }" readonly>
@@ -73,24 +73,46 @@
        								<option value="전세" ${property.property_cate eq '전세' ? 'selected' : ''}>전세</option>
            	 						<option value="월세" ${property.property_cate eq '월세' ? 'selected' : ''}>월세</option>
         						</select>
-   				 			</div>
+   				 				</div>
 							</div>
+							
 							<div class="form-row">
 								<div class="form-group col-md-8">
-									<input type="text" class="form-control" id="property_addr" name="property_addr" value="${property.property_addr }" readonly>
+									<input type="text" class="form-control" id="post_code" name="post_code" value="${property.post_code }" readonly>
+								
 								</div>
 								<div class="form-group col-md-4">
-									<input type="text" class="form-control" id="post_code" name="post_code" value="${property.post_code }" readonly>
 								</div>
 							</div>
 							<div class="form-group">
-								<input type="text" class="form-control" id="property_size" name="property_size" value="${property.property_size }" readonly>
-							</div>
-							<div class="form-group ">
-								<input type="text" class="form-control" id="price" name="price" value="${property.price }">
+								<input type="text" class="form-control" id="property_addr" name="property_addr" value="${property.property_addr }" readonly>
 							</div>
 							<div class="form-group">
-								<input type="text" class="form-control" id="deposit" name="deposit" value="${property.deposit }" disabled="false">
+								<input type="text" class="form-control" id="addr_detail" name="addr_detail" placeholder="상세주소" value="${property.addr_detail }" readonly>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-10">
+								<input type="text" class="form-control" id="property_size" name="property_size" value="${property.property_size }" readonly>
+								</div>
+								<div class="form-group col-md-2">
+									<h5>평</h5>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-10">
+									<input type="text" class="form-control" id="price" name="price" value="${property.price }" required>
+								</div>
+								<div class="form-group col-md-2">
+									<h5>만원</h5>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-10">
+									<input type="text" class="form-control" id="deposit" name="deposit" value="${property.deposit }" disabled="false">
+								</div>
+								<div class="form-group col-md-2">
+									<h5>만원</h5>
+								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
@@ -136,13 +158,14 @@
 							</div>
 
 							<div class="form-group">
-								<input type="text" class="form-control" id="description" name="description" value="${property.description}">
+								
+								<textarea class="form-control" rows="3" cols="40" id="description" name="description" placeholder="매물설명" required>${property.description}</textarea>
+							
 							</div>
 
-							<!-- <div class="form-group">
-								<label for="file">이미지</label> <input type="file" name='file'
-									maxlength="60" size="40">
-							</div> -->
+							<div class="form-group">
+								<input type="file" name='file' maxlength="60" size="40">
+							</div>
 
 							<!-- 기타 필드들을 추가할 수 있습니다. -->
 							<div class="form-group">
@@ -173,20 +196,21 @@
 		src="../resources/ProductDetail/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 		
 	<script>
+	 // 페이지 로드 시 거래 유형에 따른 보증금 필드 상태 설정
+    var transactionType = $('#property_cate').val();
+    if (transactionType === '전세' || transactionType === '매매') {
+        $('#deposit').prop('disabled', true).val('');
+    } else {
+        $('#deposit').prop('disabled', false);
+    }
+
+    // 거래 유형 변경 시 보증금 필드 상태 변경
     $('#property_cate').change(function() {
-        // 선택된 거래 유형 값을 가져옴
         var transactionType = $(this).val();
-        alert(transactionType);
-        
-        // 만약 거래 유형이 '매매'라면
         if (transactionType === '매매') {
-            // 보증금 입력 필드를 활성화
-        	$('#deposit').prop('disabled', true).val('');
-           
+            $('#deposit').prop('disabled', true).val('');
         } else {
-            // 아니라면 보증금 입력 필드를 비활성화하고 값을 초기화
             $('#deposit').prop('disabled', false);
-            
         }
     });
 	 

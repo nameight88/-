@@ -17,7 +17,7 @@
 	<div class="container">
 		<p class="text-center">More bootstrap 4 components on <a href="http://bootstrap-ecommerce.com/"> Bootstrap-ecommerce.com</a></p>
 		<hr><br>
-		<div class="card bg-light">
+		<div class="card bg-light" style=" width: 75%; margin-left: 180px; margin-top: 100px;">
 			<article class="card-body mx-auto" style="max-width: 400px;">
 				<h4 class="card-title mt-3 text-center"><b>아이디 찾기</b></h4>
 				<br>
@@ -29,8 +29,8 @@
 							<td><input type="text" id="findId_email" class="findId_email" name="findId_email"></td>
 						</tr>
 					</table><br>
-				<div class="d-grid gap-2 col-6 mx-auto">
-					<button type="button" class="btn btn-primary" id="findIdButton" name="findIdButton"> Find ID </button>
+				<div class="d-grid">
+					<button type="button" class="btn btn-primary" id="findIdButton" name="findIdButton" style="width:280px; justify-content: center; text-align: center;"> 아이디 검색 </button>
 				</div>
 				</form><br><hr><br>
 				
@@ -48,13 +48,13 @@
 							<td><input type="text" id="findPass" class="findPass" name="findPass_email"></td>
 						</tr>
 					</table><br>
-				<div class="d-grid gap-2 col-6 mx-auto">
-					<button type="button" class="btn btn-primary" id="findPassButton" name="findPassButton"> Find PW </button>
+				<div class="d-grid ">
+					<button type="button" class="btn btn-primary" id="findPassButton" name="findPassButton" style="width:280px; justify-content: center; text-align: center;"> 비밀번호 검색 </button>
 				</div>
-				</form><br><hr><br>
-				<dl>
-					<dd><p class="text-center"> 계정이 존재하나요? <a href="/middleTest/login">Login</a></p></dd>
-					<dd><p class="text-center"> 계정이 없으신가요? <a href="signUp1"> Create </a></p></dd>
+				</form><br>
+				<dl style="color: gray;">
+					<dd><p class="text-center"><small>계정이 존재하나요?</small><a href="/middleTest/login">&nbsp;Login&nbsp;&nbsp;</a></p></dd>
+					<dd><p class="text-center"><small>계정이 없으신가요?</small><a href="signUp1">&nbsp;Create</a></p></dd>
 				</dl>
 			</article>
 			<!-- article:card-body mx-auto -->
@@ -63,17 +63,6 @@
 	</div> 
 	<!--div:container-->
 	<br>
-	<article class="bg-secondary mb-3">  
-		<div class="card-body text-center">
-	    	<h3 class="text-white mt-3">Bootstrap 4 UI KIT</h3>
-			<p class="h5 text-white">Components and templates  <br> for Ecommerce, marketplace, booking websites and product landing pages</p>   
-			<br>
-			<p><a class="btn btn-warning" target="_blank" href="http://bootstrap-ecommerce.com/"> Bootstrap-ecommerce.com <i class="fa fa-window-restore "></i></a></p>
-		</div>
-		<!-- div:card-body text-center -->
-		<br><br>
-	</article>
-	<!-- article:bg-secondary mb-3 -->
 	
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

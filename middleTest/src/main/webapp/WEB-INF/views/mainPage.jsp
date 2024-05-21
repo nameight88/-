@@ -37,73 +37,35 @@
 	<div class="container">
 		<div class="">
 			<!-- Jumbotron Header -->
-			<header class="jumbotron my-4">
-				<h1 class="display-3">부동산</h1>
-				<form action="map" method="get">
-					<input type="text" name="searchText" id="searchText"
-						class="orm-control-plaintext" style="width: 35%"> <input
-						type="submit" id="btn" class="btn btn-outline-secondary btn-sm"
-						value="검색">
-				</form>
-				<br>
-
-			</header>
+         <header class="jumbotron my-4 mainPage" style=" background-image: url('resources/mainPage/img/back2.jpg');">  
+            <h1 class="display-3"><b>부동산</b></h1>
+            <form action="map" method="get">
+               <input type="text" name="searchText" id="searchText" class="orm-control-plaintext" style="width: 20%">
+               <input type="submit" id="btn" class="btn btn-outline-secondary btn-sm" value="검색">
+            </form>
+            <br>
+         </header>
 
 			<!-- Page Features -->
 			<div class="row text-center">
-
-				<div class="col-lg-3 col-md-6 mb-4">
-					<div class="card h-100">
-						<img class="card-img-top" src="http://placehold.it/500x325" alt="">
-						<div class="card-body">
-							<h4 class="card-title">신규 매물</h4>
-							<p class="card-text">신규매물에 대한 설명</p>
-						</div>
-						<div class="card-footer">
-							<a href="#" class="btn btn-outline-secondary">매물보러가기</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-3 col-md-6 mb-4">
-					<div class="card h-100">
-						<img class="card-img-top" src="http://placehold.it/500x325" alt="">
-						<div class="card-body">
-							<h4 class="card-title">신규 매물</h4>
-							<p class="card-text">신규매물에 대한 설명</p>
-						</div>
-						<div class="card-footer">
-							<a href="#" class="btn btn-outline-secondary">매물보러가기</a>
+				<c:forEach items="${newpropertyList}" var="property">
+					<div class="col-lg-3 col-md-6 mb-4">
+						<div class="card h-100">
+							<img class="card-img-top"
+								src="resources/propertyImg/${property.property_realfname}"
+								alt="">
+							<div class="card-body">
+								<h4 class="card-title">신규 매물</h4>
+								<p class="card-text">${property.description}</p>
+							</div>
+							<div class="card-footer">
+								<!-- <input type="hidden" id="property_id" name="property_id" value="${property.property_id }">  -->
+								<button class="btn btn-outline-secondary propertyDetail"
+									data-property-id="${property.property_id}">매물보러가기</button>
+							</div>
 						</div>
 					</div>
-				</div>
-
-				<div class="col-lg-3 col-md-6 mb-4">
-					<div class="card h-100">
-						<img class="card-img-top" src="http://placehold.it/500x325" alt="">
-						<div class="card-body">
-							<h4 class="card-title">신규 매물</h4>
-							<p class="card-text">신규매물에 대한 설명</p>
-						</div>
-						<div class="card-footer">
-							<a href="#" class="btn btn-outline-secondary">매물보러가기</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-3 col-md-6 mb-4">
-					<div class="card h-100">
-						<img class="card-img-top" src="http://placehold.it/500x325" alt="">
-						<div class="card-body">
-							<h4 class="card-title">신규 매물</h4>
-							<p class="card-text">신규매물에 대한 설명</p>
-						</div>
-						<div class="card-footer">
-							<a href="#" class="btn btn-outline-secondary">매물보러가기</a>
-						</div>
-					</div>
-				</div>
-
+				</c:forEach>
 			</div>
 			<div>
 
@@ -119,7 +81,14 @@
 						</c:forEach>
 					</table>
 				</div>
-
+				<nav aria-label="Page navigation">
+					<ul class="pagination justify-content-center">
+						<c:forEach begin="1" end="${totalPages}" var="i">
+							<li class="page-item ${currentPage == i ? 'active' : ''}"><a class="page-link"
+								href="?page=${i}&size=${size}">${i}</a></li>
+						</c:forEach>
+					</ul>
+				</nav>
 
 			</div>
 		</div>
@@ -135,6 +104,16 @@
 	<script
 		src="resources/mainPage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="resources/nav/js/nav.js"></script>
+	<script type="text/javascript">
+	 $(".propertyDetail").click(function() {
+		var propertyId = $(this).data("property-id");
+		//var propertyId = $(this).find("#property_id").val();
+	    
+		
+		location.href = "propertydetails?property_id=" + propertyId;
+		
+	});
+	</script>
 
 </body>
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

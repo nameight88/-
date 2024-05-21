@@ -31,12 +31,12 @@
 				<h1 class="my-4">마이페이지</h1>
 				<div class="list-group">
 					<a href="myInfo" class="list-group-item">내정보</a> <a
-						href="qnaAdmin" class="list-group-item">문의관리</a> <a
+						href="qnaAdmin" class="list-group-item">신고내역</a> <a
 						href="reservAdmin" class="list-group-item active">예약관리</a>
 
 				</div>
 				<br /> <br /> <br /> <br /><br /> <br /> <br /> <br /><br /> <br /> <br /> <br />
-				<br /> <br /> <br /> <br />
+				<br /> <br /> <br /> <br /><br /> <br /> <br /> <br /><br /> <br /> <br /> <br />
 			</div>
 
 
@@ -50,54 +50,59 @@
 					<table class="table table-bordered table-hover">
 
 						<thead>
-
-						</thead>
-						<tbody>
 							<h4 class="card-title mt-3 text-center">
 								<strong>예약관리</strong>
 							</h4>
-							
 							<!-- 추가적인 매물 행들을 여기에 추가할 수 있습니다.(임의로 만든 테이블) -->
 							<tr>
-								<td>날짜</td>
-								<td>시간</td>
-								<th>부동산</th>
+								<th>예약No.</th>
+								<th>예약시간</th>
+								<th>주소</th>
 								<th>중개인</th>
-								<td>예약유형</td>
 								<th>예약결과</th>
 								<th>취소하기</th>
 
 							</tr>
-							<tr>
-								<td>2024/05/08</td>
-								<td>13:00</td>
-								<th>한빛부동산</th>
-								<th>홍길동</th>
-								<td>부동산계약</td>
-								<th>승인</th>
-								<td><button class="btn btn-danger">취소</button></td>
-							</tr>
-							<tr>
-								<td>2024/05/10</td>
-								<td>15:00</td>
-								<th>신촌부동산</th>
-								<th>김길자</th>
-								<td>매물구경</td>
-								<th>취소</th>
-								<td><button class="btn btn-danger">취소</button></td>
-							</tr>
-							<tr>
-								<td>2024/05/13</td>
-								<td>11:00</td>
-								<th>서강부동산</th>
-								<th>이길숙</th>
-								<td>상담문의</td>
-								<th>승인</th>
-								<td><button class="btn btn-danger">취소</button></td>
-							</tr>
+						</thead>
+						<tbody>
+
+
+							<c:forEach items="${reservationSelect}" var="reservationSelect">
+								<tr>
+									<td>${reservationSelect.reservation_id }</td>
+									<td>${reservationSelect.reservation_date}<br/>${reservationSelect.reservation_time}</td>
+									<td><a href="/middleTest/propertydetails?property_id=${reservationSelect.property_id }">${reservationSelect.addr}</a></td>
+									<td>${reservationSelect.agent_id}</td>			
+									<td>${reservationSelect.status}</td>
+									<td><button class="btn btn-danger delete">취소</button></td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
+				<nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <c:if test="${currentPage > 1}">
+                            <li class="page-item">
+                                <a class="page-link" href="?page=${currentPage - 1}&size=${pageSize}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        </c:if>
+                        <c:forEach var="i" begin="1" end="${totalPages / pageSize + (totalPages % pageSize == 0 ? 0 : 1)}">
+                            <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                <a class="page-link" href="?page=${i}&size=${pageSize}">${i}</a>
+                            </li>
+                        </c:forEach>
+                        <c:if test="${currentPage * pageSize < totalPages}">
+                            <li class="page-item">
+                                <a class="page-link" href="?page=${currentPage + 1}&size=${pageSize}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </c:if>
+                    </ul>
+                </nav>
 			</div>
 		</div>
 	</div>
@@ -110,5 +115,31 @@
 	<script
 		src="<%=request.getContextPath() %>/resources/myPage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="../resources/nav/js/nav.js"></script>
+	<script type="text/javascript">
+		$(".delete").click(function(){
+			var $button = $(this); // 클릭된 버튼을 jQuery 객체로 저장
+		    var reservation_id = $button.closest("tr").find("td:first").text();
+			
+			
+			$.ajax({
+				type 	: "get"
+				,url 	: "reservationDelete"
+				,data	: {"reservation_id" : reservation_id}
+				,success : function(result){
+					if (result === "1"){
+		                alert("취소 완료");
+		                $button.closest("tr").remove();  // 클릭된 버튼의 부모 tr 요소를 삭제
+		            } else if (result === null){
+		                alert("취소 실패");
+		            }
+				}
+				,error:function(err){
+					console.log(err);
+				}
+				
+			});
+			
+		});
+	</script>
 </body>
 </html>

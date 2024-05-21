@@ -14,7 +14,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
-<script src="../resources/ProductDetail/js/reply.js"></script>
+
 
 <title>Shop Item - Start Bootstrap Template</title>
 
@@ -31,20 +31,21 @@
 <!-- Navigation -->
 <%@include file="/WEB-INF/views/common/nav.jsp"%>
 <body>
-
+<form class="manager_declaration">
 	<!-- Page Content -->
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3">
-				<h1 class="my-4">관리자 페이지</h1>
+				<h2 class="my-4">관리자 페이지</h2>
 				<div class="list-group">
-					<a href="managerPage" class="list-group-item">뉴스 관리</a>
-					<a href="manageReservation" class="list-group-item">회원 관리</a>
+					<a href="managerPage" class="list-group-item">뉴스관리</a>
+					<a href="manageReservation" class="list-group-item">회원관리</a>
 					<a href="managereport" class="list-group-item active">신고</a>
 					<!--  <a href="managerQnA" class="list-group-item">QnA</a> -->
 				
 				</div>
-				<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+				<br /> <br /> <br /> <br /><br /> <br /> <br /> <br /><br /> <br /> <br /> <br />
+				<br /> <br /> <br /> <br /><br /> <br /> <br /> <br /><br /> <br /> <br /> <br />
 			</div>
 			
 			<div class="col-lg-9">
@@ -54,10 +55,11 @@
 					
 						<thead>
 							<tr>
-								<th>매물 번호</th>
-								<th>부동산</th>
+								<th>신고번호</th>
+								<th>매물번호</th>
 								<th>회원ID</th>
-								<th>신고사유</th>
+								<th>신고내용</th>
+								<th>중개인ID</th>
 								<th>수락</th>
 								<th>반려</th>
 							</tr>
@@ -66,13 +68,13 @@
 							<!-- 여기에 매물 행을 동적으로 추가할 수 있습니다. -->
 						<c:forEach var="declaration" items="${declarationList}">
 							<tr>
-								<td><a>${declaration.declaration_num}</a></td>
-								<td><a>${declaration.property_id }</a></td>
-								<td><a>${declaration.user_id}</a></td>
-								<td><a>${declaration.declaration_contents}</a></td>
-								<td><a>${declaration.agent_id}</a></td>
-								<td><button class="btn btn-success">수락</button></td>
-								<td><button class="btn btn-danger">반려</button></td>
+								<td>${declaration.declaration_num}</td>
+								<td>${declaration.property_id }</td>
+								<td>${declaration.user_id}</td>
+								<td>${declaration.declaration_contents}</td>
+								<td>${declaration.agent_id}</td>
+								<td><button class="btn btn-success btn btn_declarationDelete_property">수락</button></td>
+								<td><button class="btn btn-danger btn_declarationDelete">반려</button></td>
 							</tr>
 						</c:forEach>
 							
@@ -80,10 +82,18 @@
 						</tbody>
 					</table>
 				</div>
+				<nav aria-label="Page navigation">
+					<ul class="pagination justify-content-center">
+						<c:forEach begin="1" end="${totalPages}" var="i">
+							<li class="page-item ${currentPage == i ? 'active' : ''}"><a class="page-link"
+								href="?page=${i}&size=${size}">${i}</a></li>
+						</c:forEach>
+					</ul>
+				</nav>
 			</div>
 		</div>
 	</div>
-
+</form>
 	<!-- /.container -->
 	<!-- Footer -->
 	<%@include file="/WEB-INF/views/common/footer.jsp"%>
@@ -97,6 +107,8 @@
 
 	<script
 		src="../resources/ProductDetail/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="../resources/ProductDetail/js/report.js"></script>
+	
 </body>
 
 </html>

@@ -44,3 +44,9 @@ a:link {
 td {
 	padding-left: 10px;
 }
+
+#btn-login{
+	width:280px;
+	justify-content: center;
+	
+}

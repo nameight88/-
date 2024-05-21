@@ -13,15 +13,16 @@ INSERT INTO USER VALUES ("manage","manage@ict.com","관리자","010-0000-0000","
 SELECT*FROM user;
 
 -- 중개인 테이블
-CREATE TABLE agent(
-	agent_id				varchar(10)		NOT NULL 				
-	,agent_email			varchar(254	)	NOT NULL UNIQUE KEY		
-	,agent_name				varchar(10)		NOT NULL				
-	,agent_phone			varchar(13)		NOT NULL				
+CREATE TABLE agent
+(
+	agent_id				varchar(10)		NOT NULL 				-- 중개인 아이디 pk
+	,agent_email			varchar(254	)	NOT NULL UNIQUE KEY		-- 중개인 이메일
+	,agent_name				varchar(10)		NOT NULL				-- 중개인 이름
+	,agent_phone			varchar(13)		NOT NULL				-- 중개인 전화번호
 	,agent_password			varchar(10) 	NOT NULL 
-	,agency					varchar(20)		NOT NULL		
-	,license_num			varchar(15)		NOT NULL		
-	,agent_fname			varchar(255)					
+	,agency					varchar(20)		NOT NULL		-- 중개소 OR 부동산 회사 이름
+	,license_num			varchar(15)		NOT NULL		-- 면허번호
+	,agent_fname			varchar(255)					-- 이미지
 	,agent_realfname		varchar(255)
 	,agent_fsize			int
 	,type					varchar(10) 	DEFAULT '중개인'
@@ -181,9 +182,9 @@ CREATE TABLE review (
 
 -- 뉴스
 CREATE TABLE news(
-	news_num	 int 			AUTO_INCREMENT PRIMARY KEY
-	,news_title	 varchar(100)	NOT NULL 
-	,news_link	 varchar(255)	NOT NULL   
+	news_num	int 			AUTO_INCREMENT PRIMARY KEY
+	,news_title	varchar(100)	NOT NULL 
+	,news_link	varchar(255)	NOT NULL   
 );
 
 SELECT*FROM news;

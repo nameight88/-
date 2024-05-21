@@ -18,7 +18,6 @@ public class AccountController {
 	@ResponseBody
 	public String findId(@RequestParam String inputEmail) throws Exception {
 		String result = service.findAccountId(inputEmail);
-		System.out.println("AccountContoller - 보내는 값은 : "+result);
 
 		return result;
 	}
@@ -29,7 +28,6 @@ public class AccountController {
 	@ResponseBody
 	public boolean fixPass(@RequestParam String inputPwId, String inputPwEmail) throws Exception {
 		boolean result = service.findAccountPass(inputPwId,inputPwEmail);
-		System.out.println("AccountContoller/findAccountPass - 보내는 값은 : "+result);
 		rememberId = inputPwId;
 		return result;
 	}
@@ -43,11 +41,10 @@ public class AccountController {
 	@RequestMapping("signUp/updatePass")
 	@ResponseBody
 	public int changePass(@RequestParam String inputNewPw) throws Exception {
-		System.out.println("AccountContoller/updatePass 받아오기 "+inputNewPw+" & "+rememberId);
+		
 		service.changeNewUserPassword(inputNewPw, rememberId);
 		service.changeNewAgentPassword(inputNewPw, rememberId);
-		System.out.println("AccountContoller/updatePass 끝");
-
+		
 		return 1;
 	}
 }
